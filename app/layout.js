@@ -18,6 +18,7 @@ export default function RootLayout({ children }) {
       <body className={`${poppins.className} bg-white text-slate-900`}>
         <Header />
         <Providers> {children}</Providers>
+        <footer>footer here</footer>
       </body>
     </html>
   );

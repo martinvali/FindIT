@@ -10,23 +10,31 @@ export function FilterComponent() {
         <p className="text-slate-700 font-normal text-lg">Filter</p>
         <button className="text-cyan-700 font-medium text-lg">Clear all</button>
       </header>
-      <p>Salary</p>
-      <Slider />
-      <p>Job type</p>
-      <Checkbox label="Full-time" color="#0E7490" />
-      <Checkbox label="Part-time" color="#0E7490" />
-      <Checkbox label="Intership" color="#0E7490" />
-      <Checkbox label="Contract" color="#0E7490" />
-      <p>Location</p>
-      <Checkbox label="Tallinn" color="#0E7490" />
-      <Checkbox label="Tartu" color="#0E7490" />
-      <Checkbox label="Hybrid" color="#0E7490" />
-      <Checkbox label="Remote" color="#0E7490" />
-      <p>Level</p>
-      <Checkbox label="Junior" color="#0E7490" />
-      <Checkbox label="Mid" color="#0E7490" />
-      <Checkbox label="Senior" color="#0E7490" />
       <Search />
+      <section className="pt-4 pb-4">
+        <p className="text-slate-900 font-semibold text-xl mb-3">Salary</p>
+        <Slider color="cyan" />
+      </section>
+      <section className="pt-4 pb-4">
+        <p className="text-slate-900 font-semibold text-xl mb-3">Job type</p>
+        <Checkbox size="md" label="Full-time" color="cyan" className="mb-2" />
+        <Checkbox size="md" label="Part-time" color="cyan" className="mb-2" />
+        <Checkbox size="md" label="Intership" color="cyan" className="mb-2" />
+        <Checkbox size="md" label="Contract" color="cyan" />
+      </section>
+      <section className="pt-4 pb-4">
+        <p className="text-slate-900 font-semibold text-xl mb-3">Location</p>
+        <Checkbox size="md" label="Tallinn" color="cyan" className="mb-2" />
+        <Checkbox size="md" label="Tartu" color="cyan" className="mb-2" />
+        <Checkbox size="md" label="Hybrid" color="cyan" className="mb-2" />
+        <Checkbox size="md" label="Remote" color="cyan" />
+      </section>
+      <section className="pt-4 pb-4">
+        <p className="text-slate-900 font-semibold text-xl mb-3">Level</p>
+        <Checkbox size="md" label="Junior" color="cyan" className="mb-2" />
+        <Checkbox size="md" label="Mid" color="cyan" className="mb-2" />
+        <Checkbox size="md" label="Senior" color="cyan" />
+      </section>
     </section>
   );
 }
