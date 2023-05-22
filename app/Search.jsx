@@ -2,7 +2,7 @@ export function Search() {
   return (
     <div className="relative">
       <input
-        className="rounded-lg p-3 shadow w-full border-none outline-cyan-700 outline-offset-1"
+        className="rounded-lg p-2 shadow w-full border-none outline-cyan-700 outline-offset-1"
         type="text"
         placeholder="Search"
       />
