@@ -1,5 +1,4 @@
 "use client";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { FormInput } from "../components/FormInput";
 import { useSupabase } from "../providers/SupabaseProvider";
 import { useState } from "react";
@@ -8,8 +7,8 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const { supabase } = useSupabase();
-  console.log(supabase.auth);
+  const supabase = createClientComponentClient();
+
   const handleSubmit = async () => {};
 
   return (
