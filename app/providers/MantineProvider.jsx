@@ -2,7 +2,7 @@
 
 import { MantineProvider } from "@mantine/core";
 
-export function Providers({ children }) {
+export function Mantine_Provider({ children }) {
   return (
     <MantineProvider
       theme={{

@@ -1,9 +1,9 @@
-import { HeroSection } from "./HeroSection";
-import { JobsSection } from "./JobsSection";
+import { HeroSection } from "./components/HeroSection";
+import { JobsSection } from "./components/JobsSection";
 
 export default function Home() {
   return (
-    <main className="">
+    <main>
       <HeroSection />
       <JobsSection />
     </main>
