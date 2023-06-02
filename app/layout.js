@@ -4,7 +4,7 @@ import { Poppins } from "next/font/google";
 import { Mantine_Provider } from "./providers/MantineProvider.jsx";
 import { SupabaseProvider } from "./providers/SupabaseProvider";
 import { headers, cookies } from "next/headers";
-import { createServerComponentSupabaseClient } from "@supabase/auth-helpers-nextjs";
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -17,7 +17,7 @@ export const metadata = {
 };
 
 export default async function RootLayout({ children }) {
-  const supabase = createServerComponentSupabaseClient({
+  const supabase = createServerComponentClient({
     headers,
     cookies,
   });

@@ -1,21 +1,27 @@
 "use client";
 import { FormInput } from "../components/FormInput";
 import { useSupabase } from "../providers/SupabaseProvider";
-import { useState } from "react";
+import Link from "next/link";
 
 export default function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const { supabase } = useSupabase();
 
-  const supabase = createClientComponentClient();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const email = e.target.querySelector("input[name=email]").value;
+    const password = e.target.querySelector("input[name=password]").value;
 
-  const handleSubmit = async () => {};
+    await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+  };
 
   return (
     <main>
       <section className="pt-24 sm:pt-32 lg:pt-40 outer-container text-center">
         <h1 className="text-slate-900 text-2xl font-medium mb-6">Sign in</h1>
-        <form className="max-w-lg mx-auto" onSubmit={handleSubmit}>
+        <form className="max-w-lg mx-auto mb-4" onSubmit={handleSubmit}>
           <FormInput label="Email" type="email" />
           <FormInput label="Password" type="password" />
           <button
@@ -25,6 +31,9 @@ export default function Login() {
             Sign in
           </button>
         </form>
+        <p>
+          Don't have an account? <Link href="signup">Sign up</Link>
+        </p>
       </section>
     </main>
   );

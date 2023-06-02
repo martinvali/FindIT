@@ -6,6 +6,7 @@ export function FormInput({ type, label }) {
       </label>
       <input
         type={type}
+        name={type}
         required
         className="rounded-lg p-2 shadow w-full border-none outline-cyan-700 outline-offset-1"
       />
