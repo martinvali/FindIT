@@ -1,10 +1,20 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useSupabase } from "../providers/SupabaseProvider";
 import Link from "next/link";
 
 export function MobileNav() {
   const [isOpen, setIsOpen] = useState(false);
+  const { supabase, session } = useSupabase();
+  const router = useRouter();
+
+  const clickedLogOut = () => {
+    supabase.auth.signOut();
+    router.refresh();
+  };
+
   return (
     <>
       <img
@@ -36,9 +46,15 @@ export function MobileNav() {
           <li>
             <Link href="/contact">Contact</Link>
           </li>
-          <li>
-            <Link href="/login">Log in</Link>
-          </li>
+          {session ? (
+            <li>
+              <button onClick={clickedLogOut}>Log out</button>
+            </li>
+          ) : (
+            <li>
+              <Link href="/login">Log in</Link>
+            </li>
+          )}
           <li>
             <Link href="/post">Post a job</Link>
           </li>

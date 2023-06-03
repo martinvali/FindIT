@@ -11,8 +11,9 @@ export function DesktopNav() {
 
   const clickedLogOut = () => {
     supabase.auth.signOut();
-    router.reload();
+    router.refresh();
   };
+
   return (
     <nav className="hidden md:flex">
       <ul className="flex flex-row gap-7 text-slate-900 font-medium text-xl lg:text-2xl lg:gap-8">
@@ -37,7 +38,6 @@ export function DesktopNav() {
         {session ? (
           <li>
             <button
-              href="/logout"
               className="hover:text-cyan-700 transition-colors"
               onClick={clickedLogOut}
             >

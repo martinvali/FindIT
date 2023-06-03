@@ -1,10 +1,12 @@
 "use client";
 import { FormInput } from "../components/FormInput";
 import { useSupabase } from "../providers/SupabaseProvider";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 export default function Login() {
   const { supabase } = useSupabase();
+  const router = useRouter();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -16,7 +18,9 @@ export default function Login() {
       password,
     });
 
-    console.log(data, error);
+    if (data.user) {
+      router.push("/");
+    }
   };
 
   return (
