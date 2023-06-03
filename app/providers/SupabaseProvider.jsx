@@ -8,6 +8,7 @@ const Context = createContext(undefined);
 
 export function SupabaseProvider({ children, session }) {
   const [supabase] = useState(() => createClientComponentClient());
+
   const router = useRouter();
 
   useEffect(() => {

@@ -1,8 +1,18 @@
 "use client";
 
 import Link from "next/link";
+import { useSupabase } from "../providers/SupabaseProvider";
+import { useRouter } from "next/navigation";
 
 export function DesktopNav() {
+  const { supabase, session } = useSupabase();
+
+  const router = useRouter();
+
+  const clickedLogOut = () => {
+    supabase.auth.signOut();
+    router.reload();
+  };
   return (
     <nav className="hidden md:flex">
       <ul className="flex flex-row gap-7 text-slate-900 font-medium text-xl lg:text-2xl lg:gap-8">
@@ -24,11 +34,26 @@ export function DesktopNav() {
             Contact
           </Link>
         </li>
-        <li>
-          <Link href="/login" className="hover:text-cyan-700 transition-colors">
-            Log in
-          </Link>
-        </li>
+        {session ? (
+          <li>
+            <button
+              href="/logout"
+              className="hover:text-cyan-700 transition-colors"
+              onClick={clickedLogOut}
+            >
+              Log out
+            </button>
+          </li>
+        ) : (
+          <li>
+            <Link
+              href="/login"
+              className="hover:text-cyan-700 transition-colors"
+            >
+              Log in
+            </Link>
+          </li>
+        )}
         <li>
           <Link
             href="/post"
