@@ -14,6 +14,16 @@ export function DesktopNav() {
     router.refresh();
   };
 
+  const clickedPostJob = (e) => {
+    e.preventDefault();
+
+    if (session) {
+      router.push("/post");
+    } else {
+      router.push("/login");
+    }
+  };
+
   return (
     <nav className="hidden md:flex">
       <ul className="flex flex-row gap-7 text-slate-900 font-medium text-xl lg:text-2xl lg:gap-8">
@@ -55,12 +65,13 @@ export function DesktopNav() {
           </li>
         )}
         <li>
-          <Link
-            href="/post"
+          <a
+            onClick={clickedPostJob}
+            href=""
             className="bg-cyan-500 hover:bg-cyan-600 transition-colors text-white py-1.5 px-3 rounded-md text-xl lg:py-2 lg:px-5"
           >
             Post a job
-          </Link>
+          </a>
         </li>
       </ul>
     </nav>
