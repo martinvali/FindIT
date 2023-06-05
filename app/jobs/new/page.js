@@ -1,10 +1,10 @@
 "use client";
-import { FormInput } from "../components/FormInput";
-import { useSupabase } from "../providers/SupabaseProvider";
+import { FormInput } from "../../components/FormInput";
+import { useSupabase } from "../../providers/SupabaseProvider";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
-export default function Login() {
+export default function NewJob() {
   const { supabase } = useSupabase();
   const router = useRouter();
 
@@ -26,20 +26,19 @@ export default function Login() {
   return (
     <main>
       <section className="pt-24 sm:pt-32 lg:pt-40 outer-container text-center">
-        <h1 className="text-slate-900 text-2xl font-medium mb-6">Sign in</h1>
-        <form className="max-w-lg mx-auto mb-4" onSubmit={handleSubmit}>
-          <FormInput label="Email" type="email" name="email" />
-          <FormInput label="Password" type="password" name="password" />
+        <h1 className="text-slate-900 text-2xl font-medium mb-6">
+          Post a new job
+        </h1>
+        <form className="max-w-xl mx-auto mb-4" onSubmit={handleSubmit}>
+          <FormInput label="Title" type="text" name="title" />
+          <FormInput label="Application URL" type="url" name="url" />
           <button
             type="submit"
             className="bg-cyan-500 text-white w-full rounded-md py-2 text-lg font-medium"
           >
-            Sign in
+            Submit
           </button>
         </form>
-        <p>
-          Don't have an account? <Link href="signup">Sign up</Link>
-        </p>
       </section>
     </main>
   );

@@ -26,7 +26,7 @@ export default async function RootLayout({ children }) {
     data: { session },
   } = await supabase.auth.getSession();
   return (
-    <html lang="en" className="bg-white">
+    <html className="bg-white">
       <body className={`${poppins.className} bg-white text-slate-900`}>
         <SupabaseProvider session={session}>
           <Header />

@@ -18,7 +18,7 @@ export function DesktopNav() {
     e.preventDefault();
 
     if (session) {
-      router.push("/post");
+      router.push("/jobs/new");
     } else {
       router.push("/login");
     }
