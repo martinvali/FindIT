@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export function JobCard() {
+export function JobCard({ title }) {
   return (
     <article className="group shadow p-6 rounded-xl relative cursor-pointer">
       <div className="hidden lg:flex opacity-0 group-hover:opacity-100 transition-opacity  flex-row items-center gap-4 sm:gap-6 absolute bottom-0 pb-4 w-full bg-white">
@@ -25,7 +25,7 @@ export function JobCard() {
           <div className="flex flex-col justify-start lg:justify-between">
             <p className="text-cyan-500 font-semibold text-lg">BOLT</p>
             <p className="hidden lg:block text-slate-900 text-2xl font-medium">
-              Product Manager - AI
+              {title}
             </p>
           </div>
         </div>
