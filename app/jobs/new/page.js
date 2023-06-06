@@ -60,6 +60,7 @@ export default function NewJob() {
               label="Title"
               radius="md"
               {...form.getInputProps("title")}
+              withAsterisk
             />
           </div>
 
@@ -68,6 +69,7 @@ export default function NewJob() {
               label="Application URL"
               radius="md"
               {...form.getInputProps("url")}
+              withAsterisk
             />
           </div>
           <div className="flex flex-col text-left mb-6">

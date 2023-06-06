@@ -11,7 +11,8 @@ export async function POST(req) {
 
   const id = user.data.user.id;
 
-  const resp = await supabase.from("posts").insert({ user_id: id, title });
-  console.log(resp);
+  const resp = await supabase
+    .from("posts")
+    .insert({ user_id: id, title, Location: location });
   return NextResponse.json({}, { status: 200 });
 }
