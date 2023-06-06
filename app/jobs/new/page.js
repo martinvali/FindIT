@@ -2,24 +2,46 @@
 import { FormInput } from "../../components/FormInput";
 import { useSupabase } from "../../providers/SupabaseProvider";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
+import { Checkbox } from "@mantine/core";
+import { Radio } from "@mantine/core";
+import { useForm } from "@mantine/form";
 
 export default function NewJob() {
+  const form = useForm({
+    initialValues: {
+      title: "",
+      url: "",
+      location: "",
+    },
+
+    validate: {
+      location(value) {
+        if (!value || value.length === 0 || value.length > 2) {
+          return "Please select up to 2 locations.";
+        }
+      },
+
+      experience(value) {
+        if (!value) {
+          return "Please choose an experience level.";
+        }
+      },
+
+      type(value) {
+        if (!value) {
+          return "Please choose a type.";
+        }
+      },
+    },
+  });
+
   const { supabase } = useSupabase();
   const router = useRouter();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const email = e.target.querySelector("input[name=email]").value;
-    const password = e.target.querySelector("input[name=password]").value;
-
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
-
-    if (data.user) {
-      router.push("/");
+    const validate = form.validate();
+    if (!validate.hasErrors) {
     }
   };
 
@@ -30,8 +52,54 @@ export default function NewJob() {
           Post a new job
         </h1>
         <form className="max-w-xl mx-auto mb-4" onSubmit={handleSubmit}>
-          <FormInput label="Title" type="text" name="title" />
-          <FormInput label="Application URL" type="url" name="url" />
+          <FormInput label="Title" type="text" name="title" withAsterisk />
+          <FormInput
+            label="Application URL"
+            type="url"
+            name="url"
+            withAsterisk
+          />
+          <div className="flex flex-col text-left mb-6">
+            <Checkbox.Group
+              label="Location (select up to 2)"
+              name="location"
+              {...form.getInputProps("location", { type: "checkbox" })}
+              withAsterisk
+              required
+            >
+              <Checkbox value="Remote" label="Remote" />
+              <Checkbox value="Tallinn" label="Tallinn" />
+              <Checkbox value="Tartu" label="Tartu" />
+              <Checkbox value="Pärnu" label="Pärnu" />
+            </Checkbox.Group>
+          </div>
+          <div className="flex flex-col text-left mb-6">
+            <Radio.Group
+              name="experience"
+              label="Experience level"
+              required
+              {...form.getInputProps("experience")}
+              withAsterisk
+            >
+              <Radio value="Junior" label="junior" />
+              <Radio value="Mid-level" label="mid-level" />
+              <Radio value="Senior" label="senior" />
+            </Radio.Group>
+          </div>
+
+          <div className="flex flex-col text-left mb-6">
+            <Radio.Group
+              name="type"
+              label="Type"
+              {...form.getInputProps("type")}
+              withAsterisk
+            >
+              <Radio value="Full time" label="Full time" />
+              <Radio value="Part time" label="Part time" />
+              <Radio value="Intership" label="Intership" />
+            </Radio.Group>
+          </div>
+
           <button
             type="submit"
             className="bg-cyan-500 text-white w-full rounded-md py-2 text-lg font-medium"
