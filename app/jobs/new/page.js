@@ -2,8 +2,7 @@
 import { FormInput } from "../../components/FormInput";
 import { useSupabase } from "../../providers/SupabaseProvider";
 import { useRouter } from "next/navigation";
-import { Checkbox } from "@mantine/core";
-import { Radio } from "@mantine/core";
+import { Radio, Checkbox, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
 
 export default function NewJob() {
@@ -11,7 +10,9 @@ export default function NewJob() {
     initialValues: {
       title: "",
       url: "",
-      location: "",
+      location: [],
+      experience: "",
+      type: "",
     },
 
     validate: {
@@ -41,7 +42,9 @@ export default function NewJob() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const validate = form.validate();
+    console.log(form.values);
     if (!validate.hasErrors) {
+      fetch("/api/jobs", { method: "POST", body: JSON.stringify(form.values) });
     }
   };
 
@@ -52,13 +55,21 @@ export default function NewJob() {
           Post a new job
         </h1>
         <form className="max-w-xl mx-auto mb-4" onSubmit={handleSubmit}>
-          <FormInput label="Title" type="text" name="title" withAsterisk />
-          <FormInput
-            label="Application URL"
-            type="url"
-            name="url"
-            withAsterisk
-          />
+          <div className="flex flex-col text-left mb-6">
+            <TextInput
+              label="Title"
+              radius="md"
+              {...form.getInputProps("title")}
+            />
+          </div>
+
+          <div className="flex flex-col text-left mb-6">
+            <TextInput
+              label="Application URL"
+              radius="md"
+              {...form.getInputProps("url")}
+            />
+          </div>
           <div className="flex flex-col text-left mb-6">
             <Checkbox.Group
               label="Location (select up to 2)"
