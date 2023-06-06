@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export function JobCard({ title }) {
+export function JobCard({ title, location }) {
   return (
     <article className="group shadow p-6 rounded-xl relative cursor-pointer">
       <div className="hidden lg:flex opacity-0 group-hover:opacity-100 transition-opacity  flex-row items-center gap-4 sm:gap-6 absolute bottom-0 pb-4 w-full bg-white">
@@ -35,7 +35,7 @@ export function JobCard({ title }) {
         Product Manager - AI
       </p>
       <p className="text-cyan-700 font-semibold mb-2.5 sm:mb-3.5 sm:text-lg lg:mb-0 lg:text-xl">
-        3000-4000€ &#8226; Tallinn/Tartu &#8226; Junior &#8226; Full-time
+        3000-4000€ &#8226; {location.join("/")} &#8226; Junior &#8226; Full-time
       </p>
       <div className="flex flex-row items-center gap-4 sm:gap-6 lg:hidden">
         <Link

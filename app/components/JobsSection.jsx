@@ -15,6 +15,7 @@ export function JobsSection() {
       const { data } = response;
       setPosts(data);
     }
+
     fetchAllPosts();
   }, []);
 
@@ -22,8 +23,9 @@ export function JobsSection() {
     <section className="max-w-7xl pt-24 outer-container flex gap-6 flex-row">
       <FilterComponent />
       <section className="flex flex-col gap-6 sm:gap-7 md:gap-8 basis-full">
-        {posts.map(({ title }) => {
-          return <JobCard title={title} />;
+        {posts.map((post) => {
+          console.log(posts);
+          return <JobCard {...post} key={post.id} />;
         })}
       </section>
     </section>
