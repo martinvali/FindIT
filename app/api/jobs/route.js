@@ -13,6 +13,6 @@ export async function POST(req) {
 
   const resp = await supabase
     .from("posts")
-    .insert({ user_id: id, title, location });
+    .insert({ user_id: id, title, location, type, experience });
   return NextResponse.json({}, { status: 200 });
 }

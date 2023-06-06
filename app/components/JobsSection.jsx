@@ -24,7 +24,6 @@ export function JobsSection() {
       <FilterComponent />
       <section className="flex flex-col gap-6 sm:gap-7 md:gap-8 basis-full">
         {posts.map((post) => {
-          console.log(posts);
           return <JobCard {...post} key={post.id} />;
         })}
       </section>

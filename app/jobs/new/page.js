@@ -94,9 +94,9 @@ export default function NewJob() {
               {...form.getInputProps("experience")}
               withAsterisk
             >
-              <Radio value="Junior" label="junior" />
-              <Radio value="Mid-level" label="mid-level" />
-              <Radio value="Senior" label="senior" />
+              <Radio value="Junior" label="Junior" />
+              <Radio value="Mid-level" label="Mid-level" />
+              <Radio value="Senior" label="Senior" />
             </Radio.Group>
           </div>
 
@@ -107,8 +107,8 @@ export default function NewJob() {
               {...form.getInputProps("type")}
               withAsterisk
             >
-              <Radio value="Full time" label="Full time" />
-              <Radio value="Part time" label="Part time" />
+              <Radio value="Full-time" label="Full-time" />
+              <Radio value="Part-time" label="Part-time" />
               <Radio value="Intership" label="Intership" />
             </Radio.Group>
           </div>
