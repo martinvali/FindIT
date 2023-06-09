@@ -1,4 +1,5 @@
 import "./globals.css";
+import "@mantine/core/styles.css";
 import { Header } from "./components/Header";
 import { Poppins } from "next/font/google";
 import { Mantine_Provider } from "./providers/MantineProvider.jsx";
