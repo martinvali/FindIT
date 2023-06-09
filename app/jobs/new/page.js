@@ -1,8 +1,7 @@
 "use client";
-import { FormInput } from "../../components/FormInput";
 import { useSupabase } from "../../providers/SupabaseProvider";
 import { useRouter } from "next/navigation";
-import { Radio, Checkbox, TextInput } from "@mantine/core";
+import { NativeSelect, Checkbox, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
 
 export default function NewJob() {
@@ -87,31 +86,13 @@ export default function NewJob() {
             </Checkbox.Group>
           </div>
           <div className="flex flex-col text-left mb-6">
-            <Radio.Group
-              name="experience"
+            <NativeSelect
               label="Experience level"
-              required
-              {...form.getInputProps("experience")}
-              withAsterisk
-            >
-              <Radio value="Junior" label="Junior" />
-              <Radio value="Mid-level" label="Mid-level" />
-              <Radio value="Senior" label="Senior" />
-            </Radio.Group>
+              data={["Junior", "Mid-level", "Senior"]}
+            />
           </div>
 
-          <div className="flex flex-col text-left mb-6">
-            <Radio.Group
-              name="type"
-              label="Type"
-              {...form.getInputProps("type")}
-              withAsterisk
-            >
-              <Radio value="Full-time" label="Full-time" />
-              <Radio value="Part-time" label="Part-time" />
-              <Radio value="Intership" label="Intership" />
-            </Radio.Group>
-          </div>
+          <div className="flex flex-col text-left mb-6"></div>
 
           <button
             type="submit"
