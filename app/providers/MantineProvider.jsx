@@ -7,7 +7,6 @@ export function Mantine_Provider({ children }) {
     <MantineProvider
       theme={{
         fontFamily: "__Poppins_3bfef9, __Poppins_Fallback_3bfef9",
-        colors: "",
         colorScheme: "light",
       }}
     >
