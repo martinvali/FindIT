@@ -26,13 +26,19 @@ export default function Login() {
           <FormInput label="Password" type="password" name="password" />
           <button
             type="submit"
-            className="bg-cyan-500 text-white w-full rounded-md py-2 text-lg font-medium"
+            className="bg-cyan-500 text-white w-full rounded-md py-2 text-lg font-medium "
           >
             Sign up
           </button>
         </form>
         <p>
-          Already have an account? <Link href="/login">Sign in</Link>
+          Already have an account?{" "}
+          <Link
+            href="/login"
+            className="z-10 relative after:absolute after:bottom-0.5 after:left-1/2	after:-translate-x-1/2 after:w-[110%] after:h-1 after:bg-cyan-400 after:-z-10 after:rounded-tl-xl"
+          >
+            Sign in
+          </Link>
         </p>
       </section>
     </main>

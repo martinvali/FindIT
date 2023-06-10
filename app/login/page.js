@@ -38,7 +38,13 @@ export default function Login() {
           </button>
         </form>
         <p>
-          Don't have an account? <Link href="signup">Sign up</Link>
+          Don't have an account?{" "}
+          <Link
+            href="signup"
+            className="z-10 relative after:absolute after:bottom-0.5 after:left-1/2	after:-translate-x-1/2 after:w-[110%] after:h-1 after:bg-cyan-400 after:-z-10 after:rounded-tl-xl"
+          >
+            Sign up
+          </Link>
         </p>
       </section>
     </main>
