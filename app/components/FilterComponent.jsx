@@ -1,50 +1,164 @@
 "use client";
 //import { Search } from "./Search";
 import { Slider, Checkbox, TextInput } from "@mantine/core";
+import { useState } from "react";
+export function FilterComponent({ setPosts }) {
+  const DEFAULT_FILTERS = {
+    search: "",
+    salary: "",
+    jobType: [],
+    location: [],
+    level: [],
+  };
 
-export function FilterComponent() {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const [filters, setFilters] = useState(DEFAULT_FILTERS);
   return (
-    <section className="max-w-xs p-8 shadow rounded-xl self-start">
-      <header className="flex flex-row justify-between mb-6">
-        <p className="text-slate-700 font-normal text-lg">Filter</p>
-        <button className="text-cyan-700 font-medium text-lg">Clear all</button>
-      </header>
-      <p className="text-slate-900 font-semibold text-xl mb-3">Search</p>
-      <TextInput
-        radius="md"
-        size="sm"
-        rightSection={
-          <img
-            src="/searchIcon.svg"
-            alt="Search icon"
-            className="bg-cyan-50 h-full rounded-r-lg p-2.5"
+    <>
+      <div className="flex flex-row justify-center items-center ml-auto gap-1.5 lg:hidden">
+        <img src="/filterIcon.svg" alt="filter icon" />
+        <button className="" onClick={() => setIsOpen(!isOpen)}>
+          Filter
+        </button>
+      </div>
+      {isOpen && (
+        <section className="static w-full lg:max-w-xs p-8 shadow rounded-xl self-start">
+          <header className="flex flex-row justify-between mb-6">
+            <p className="text-slate-700 font-normal text-lg">Filter</p>
+            <button className="text-cyan-700 font-medium text-lg">
+              Clear all
+            </button>
+          </header>
+          <p className="text-slate-900 font-semibold text-xl mb-3">Search</p>
+          <TextInput
+            radius="md"
+            size="sm"
+            value={filters.search}
+            onChange={(e) =>
+              setFilters((oldFilters) => ({
+                ...oldFilters,
+                search: e.target.value,
+              }))
+            }
+            rightSection={
+              <img
+                src="/searchIcon.svg"
+                alt="Search icon"
+                className="bg-cyan-50 h-full rounded-r-lg p-2.5"
+              />
+            }
           />
-        }
-      />
-      <section className="pt-4 pb-4">
-        <p className="text-slate-900 font-semibold text-xl mb-3">Salary</p>
-        <Slider color="cyan" />
-      </section>
-      <section className="pt-4 pb-4">
-        <p className="text-slate-900 font-semibold text-xl mb-3">Job type</p>
-        <Checkbox size="md" label="Full-time" color="cyan" className="mb-2" />
-        <Checkbox size="md" label="Part-time" color="cyan" className="mb-2" />
-        <Checkbox size="md" label="Intership" color="cyan" className="mb-2" />
-        <Checkbox size="md" label="Contract" color="cyan" />
-      </section>
-      <section className="pt-4 pb-4">
-        <p className="text-slate-900 font-semibold text-xl mb-3">Location</p>
-        <Checkbox size="md" label="Tallinn" color="cyan" className="mb-2" />
-        <Checkbox size="md" label="Tartu" color="cyan" className="mb-2" />
-        <Checkbox size="md" label="Hybrid" color="cyan" className="mb-2" />
-        <Checkbox size="md" label="Remote" color="cyan" />
-      </section>
-      <section className="pt-4 pb-4">
-        <p className="text-slate-900 font-semibold text-xl mb-3">Level</p>
-        <Checkbox size="md" label="Junior" color="cyan" className="mb-2" />
-        <Checkbox size="md" label="Mid" color="cyan" className="mb-2" />
-        <Checkbox size="md" label="Senior" color="cyan" />
-      </section>
-    </section>
+          <section className="pt-4 pb-4">
+            <p className="text-slate-900 font-semibold text-xl mb-3">Salary</p>
+            <Slider color="cyan" />
+          </section>
+          <section className="pt-4 pb-4">
+            <p className="text-slate-900 font-semibold text-xl mb-3">
+              Job type
+            </p>
+            {["Full-time", "Part-time", "Intership", "Contract"].map(
+              (type, index, arr) => {
+                return (
+                  <Checkbox
+                    key={type}
+                    size="md"
+                    label={type}
+                    color="cyan"
+                    onChange={(e) => {
+                      const { checked } = e.target;
+
+                      if (checked) {
+                        setFilters({
+                          ...filters,
+                          jobType: [...filters.jobType, type],
+                        });
+                      } else {
+                        setFilters({
+                          ...filters,
+                          jobType: filters.jobType.filter(
+                            (jobType) => jobType !== type
+                          ),
+                        });
+                      }
+                    }}
+                    checked={filters.jobType.includes(type)}
+                    className={index + 1 === arr.length ? "" : "mb-2"}
+                  />
+                );
+              }
+            )}
+          </section>
+          <section className="pt-4 pb-4">
+            <p className="text-slate-900 font-semibold text-xl mb-3">
+              Location
+            </p>
+            {["Tallinn", "Tartu", "Hybrid", "Remote"].map(
+              (location, index, arr) => {
+                return (
+                  <Checkbox
+                    key={location}
+                    size="md"
+                    label={location}
+                    color="cyan"
+                    onChange={(e) => {
+                      const { checked } = e.target;
+
+                      if (checked) {
+                        setFilters({
+                          ...filters,
+                          location: [...filters.location, location],
+                        });
+                      } else {
+                        setFilters({
+                          ...filters,
+                          location: filters.location.filter(
+                            (jobLocation) => jobLocation !== location
+                          ),
+                        });
+                      }
+                    }}
+                    checked={filters.location.includes(location)}
+                    className={index + 1 === arr.length ? "" : "mb-2"}
+                  />
+                );
+              }
+            )}
+          </section>
+          <section className="pt-4 pb-4">
+            <p className="text-slate-900 font-semibold text-xl mb-3">Level</p>
+            {["Junior", "Mid", "Senior"].map((level, index, arr) => {
+              return (
+                <Checkbox
+                  key={level}
+                  size="md"
+                  label={level}
+                  color="cyan"
+                  onChange={(e) => {
+                    const { checked } = e.target;
+
+                    if (checked) {
+                      setFilters({
+                        ...filters,
+                        level: [...filters.level, level],
+                      });
+                    } else {
+                      setFilters({
+                        ...filters,
+                        level: filters.level.filter(
+                          (jobLevel) => jobLevel !== level
+                        ),
+                      });
+                    }
+                  }}
+                  checked={filters.level.includes(level)}
+                  className={index + 1 === arr.length ? "" : "mb-2"}
+                />
+              );
+            })}
+          </section>
+        </section>
+      )}
+    </>
   );
 }

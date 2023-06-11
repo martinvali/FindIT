@@ -20,8 +20,8 @@ export function JobsSection() {
   }, []);
 
   return (
-    <section className="max-w-7xl pt-24 outer-container flex gap-6 flex-row">
-      <FilterComponent />
+    <section className="flex-col max-w-7xl pt-24 outer-container flex gap-6 lg:flex-row">
+      <FilterComponent setPosts={setPosts} />
       <section className="flex flex-col gap-6 sm:gap-7 md:gap-8 basis-full">
         {posts.map((post) => {
           return <JobCard {...post} key={post.id} />;
