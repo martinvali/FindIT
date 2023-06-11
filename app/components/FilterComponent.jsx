@@ -1,7 +1,6 @@
 "use client";
-import { Search } from "./Search";
-import { Slider } from "@mantine/core";
-import { Checkbox } from "@mantine/core";
+//import { Search } from "./Search";
+import { Slider, Checkbox, TextInput } from "@mantine/core";
 
 export function FilterComponent() {
   return (
@@ -10,7 +9,18 @@ export function FilterComponent() {
         <p className="text-slate-700 font-normal text-lg">Filter</p>
         <button className="text-cyan-700 font-medium text-lg">Clear all</button>
       </header>
-      <Search />
+      <p className="text-slate-900 font-semibold text-xl mb-3">Search</p>
+      <TextInput
+        radius="md"
+        size="sm"
+        rightSection={
+          <img
+            src="/searchIcon.svg"
+            alt="Search icon"
+            className="bg-cyan-50 h-full rounded-r-lg p-2.5"
+          />
+        }
+      />
       <section className="pt-4 pb-4">
         <p className="text-slate-900 font-semibold text-xl mb-3">Salary</p>
         <Slider color="cyan" />

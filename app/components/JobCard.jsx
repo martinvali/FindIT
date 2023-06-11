@@ -15,7 +15,6 @@ export function JobCard({
           className="bg-cyan-500 transition-colors hover:bg-cyan-600 text-white py-1 sm:py-1.5 sm:px-4 px-3 rounded-md text-lg sm:text-xl"
         >
           {isDashboard ? "Edit" : "Apply now"}
-          Apply now
         </Link>
         <Link
           href="learn-more"
