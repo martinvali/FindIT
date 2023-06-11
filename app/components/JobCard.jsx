@@ -1,6 +1,12 @@
 import Link from "next/link";
 
-export function JobCard({ title, location, type, experience }) {
+export function JobCard({
+  title,
+  location,
+  type,
+  experience,
+  isDashboard = false,
+}) {
   return (
     <article className="group shadow p-6 rounded-xl relative cursor-pointer">
       <div className="hidden lg:flex opacity-0 group-hover:opacity-100 transition-opacity  flex-row items-center gap-4 sm:gap-6 absolute bottom-0 pb-4 w-full bg-white">
@@ -8,13 +14,14 @@ export function JobCard({ title, location, type, experience }) {
           href="/apply"
           className="bg-cyan-500 transition-colors hover:bg-cyan-600 text-white py-1 sm:py-1.5 sm:px-4 px-3 rounded-md text-lg sm:text-xl"
         >
+          {isDashboard ? "Edit" : "Apply now"}
           Apply now
         </Link>
         <Link
           href="learn-more"
           className="text-cyan-600 text-lg sm:text-xl font-semibold hover:text-slate-900"
         >
-          Learn more
+          {isDashboard ? "Delete" : "Learn more"}
         </Link>
       </div>
       <div className="flex flex-row justify-between items-center mb-1 sm:mb-1.5 lg:mb-3.5 lg:items-start">
@@ -43,13 +50,13 @@ export function JobCard({ title, location, type, experience }) {
           href="/apply"
           className="bg-cyan-500 transition-colors hover:bg-cyan-600 text-white py-1 sm:py-1.5 sm:px-4 px-3 rounded-md text-lg sm:text-xl"
         >
-          Apply now
+          {isDashboard ? "Edit" : "Apply now"}
         </Link>
         <Link
           href="learn-more"
           className="text-cyan-600 text-lg sm:text-xl font-semibold hover:text-slate-900"
         >
-          Learn more
+          {isDashboard ? "Delete" : "Learn more"}
         </Link>
       </div>
     </article>

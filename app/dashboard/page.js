@@ -31,13 +31,23 @@ export default function Dashboard() {
       <section className="pt-24 sm:pt-32 lg:pt-40 outer-container text-center">
         <h1 className="text-slate-900 text-2xl font-medium mb-6">Dashboard</h1>
       </section>
-      <section className="flex flex-col justify-start items-center outer-container lg:flex-row">
-        <section className="w-full">
-          <DashboardNav />
-          {jobs.map((job) => {
-            return <JobCard {...job} />;
-          })}
-        </section>
+      <section className="outer-container">
+        <Tabs defaultValue="My jobs">
+          <Tabs.List justify="center">
+            <Tabs.Tab value="My jobs">My jobs</Tabs.Tab>
+            <Tabs.Tab value="Settings">Settings</Tabs.Tab>
+          </Tabs.List>
+
+          <Tabs.Panel value="My jobs" pt="xs">
+            {jobs.map((job) => {
+              return <JobCard {...job} key={job.id} isDashboard={true} />;
+            })}
+          </Tabs.Panel>
+
+          <Tabs.Panel value="Settings" pt="xs">
+            Settings tab content
+          </Tabs.Panel>
+        </Tabs>
       </section>
     </main>
   );

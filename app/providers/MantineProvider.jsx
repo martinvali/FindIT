@@ -1,12 +1,16 @@
 "use client";
 
-import { MantineProvider } from "@mantine/core";
+import { MantineProvider, createTheme } from "@mantine/core";
 
 export function Mantine_Provider({ children }) {
+  const theme = createTheme({
+    fontFamily: "__Poppins_3bfef9, __Poppins_Fallback_3bfef9",
+    primaryColor: "cyan",
+  });
   return (
     <MantineProvider
       theme={{
-        fontFamily: "__Poppins_3bfef9, __Poppins_Fallback_3bfef9",
+        theme,
       }}
       defaultColorScheme="light"
     >
