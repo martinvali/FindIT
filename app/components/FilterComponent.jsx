@@ -1,7 +1,7 @@
 "use client";
 //import { Search } from "./Search";
 import { Slider, Checkbox, TextInput } from "@mantine/core";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 export function FilterComponent({ setPosts, allPosts }) {
   const DEFAULT_FILTERS = {
     search: "",
@@ -12,6 +12,14 @@ export function FilterComponent({ setPosts, allPosts }) {
   };
   const [isOpen, setIsOpen] = useState(false);
   const [filters, setFilters] = useState(DEFAULT_FILTERS);
+
+  const windowWidth = useRef(window.innerWidth);
+
+  useEffect(() => {
+    if (windowWidth.current >= 1024 && !isOpen) {
+      setIsOpen(true);
+    }
+  }, []);
 
   useEffect(() => {
     setPosts(() => {
