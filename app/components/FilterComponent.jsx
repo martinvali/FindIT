@@ -22,7 +22,6 @@ export function FilterComponent({ setPosts, allPosts }) {
   }, []);
 
   useEffect(() => {
-    console.log(filters.salary);
     setPosts(() => {
       const filteredPosts = allPosts.filter((post) => {
         if (
@@ -35,10 +34,16 @@ export function FilterComponent({ setPosts, allPosts }) {
         ) {
           return false;
         }
+
+        if (
+          filters.location.length !== 0 &&
+          !filters.location.some((location) => post.location.includes(location))
+        ) {
+          return false;
+        }
+
         return (
           (filters.type.length === 0 || filters.type.includes(post.type)) &&
-          (filters.location.length === 0 ||
-            filters.location.includes(post.location)) &&
           (filters.level.length === 0 || filters.level.includes(post.level))
         );
       });

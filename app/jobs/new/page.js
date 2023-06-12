@@ -48,7 +48,6 @@ export default function NewJob() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const validate = form.validate();
-    console.log(form.values);
     if (!validate.hasErrors) {
       fetch("/api/jobs", { method: "POST", body: JSON.stringify(form.values) });
     }
