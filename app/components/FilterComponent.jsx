@@ -1,7 +1,7 @@
 "use client";
 //import { Search } from "./Search";
 import { Slider, Checkbox, TextInput } from "@mantine/core";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 export function FilterComponent({ setPosts, allPosts }) {
   const DEFAULT_FILTERS = {
     search: "",

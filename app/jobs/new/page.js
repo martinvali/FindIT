@@ -10,7 +10,7 @@ export default function NewJob() {
       title: "",
       url: "",
       location: [],
-      experience: "",
+      level: "",
       type: "",
     },
 
@@ -21,7 +21,7 @@ export default function NewJob() {
         }
       },
 
-      experience(value) {
+      level(value) {
         if (!value) {
           return "Please choose an experience level.";
         }
@@ -88,11 +88,29 @@ export default function NewJob() {
           <div className="flex flex-col text-left mb-6">
             <NativeSelect
               label="Experience level"
-              data={["Junior", "Mid-level", "Senior"]}
-            />
+              {...form.getInputProps("level")}
+            >
+              <option hidden>Please choose an experience level</option>
+              {["Junior", "Mid-level", "Senior"].map((level) => {
+                return (
+                  <option value={level} key={level}>
+                    {level}
+                  </option>
+                );
+              })}
+            </NativeSelect>
           </div>
 
-          <div className="flex flex-col text-left mb-6"></div>
+          <div className="flex flex-col text-left mb-6">
+            <NativeSelect label="Job type" {...form.getInputProps("type")}>
+              <option hidden>Please choose a type</option>
+              {["Full-time", "Part-time", "Intership", "Contract"].map(
+                (type) => {
+                  return <option value={type}>{type}</option>;
+                }
+              )}
+            </NativeSelect>
+          </div>
 
           <button
             type="submit"
