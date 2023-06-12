@@ -1,19 +1,33 @@
 "use client";
 //import { Search } from "./Search";
 import { Slider, Checkbox, TextInput } from "@mantine/core";
-import { useState } from "react";
-export function FilterComponent({ setPosts }) {
+import { useState, useEffect, useRef } from "react";
+export function FilterComponent({ setPosts, allPosts }) {
   const DEFAULT_FILTERS = {
     search: "",
     salary: "",
-    jobType: [],
+    type: [],
     location: [],
     level: [],
   };
-
   const [isOpen, setIsOpen] = useState(false);
-
   const [filters, setFilters] = useState(DEFAULT_FILTERS);
+
+  useEffect(() => {
+    setPosts(() => {
+      const filteredPosts = allPosts.filter((post) => {
+        console.log(post);
+        return (
+          (filters.type.length === 0 || filters.type.includes(post.type)) &&
+          (filters.location.length === 0 ||
+            filters.location.includes(post.location)) &&
+          (filters.level.length === 0 ||
+            filters.level.length.includes(post.level))
+        );
+      });
+      return filteredPosts;
+    });
+  }, [filters]);
   return (
     <>
       <div className="flex flex-row justify-center items-center ml-auto gap-1.5 lg:hidden">
@@ -35,12 +49,12 @@ export function FilterComponent({ setPosts }) {
             radius="md"
             size="sm"
             value={filters.search}
-            onChange={(e) =>
+            onChange={(e) => {
               setFilters((oldFilters) => ({
                 ...oldFilters,
                 search: e.target.value,
-              }))
-            }
+              }));
+            }}
             rightSection={
               <img
                 src="/searchIcon.svg"
@@ -71,18 +85,18 @@ export function FilterComponent({ setPosts }) {
                       if (checked) {
                         setFilters({
                           ...filters,
-                          jobType: [...filters.jobType, type],
+                          type: [...filters.type, type],
                         });
                       } else {
                         setFilters({
                           ...filters,
-                          jobType: filters.jobType.filter(
+                          type: filters.type.filter(
                             (jobType) => jobType !== type
                           ),
                         });
                       }
                     }}
-                    checked={filters.jobType.includes(type)}
+                    checked={filters.type.includes(type)}
                     className={index + 1 === arr.length ? "" : "mb-2"}
                   />
                 );
