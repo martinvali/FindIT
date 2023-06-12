@@ -1,10 +1,12 @@
 import Link from "next/link";
 
 export function JobCard({
+  id,
   title,
   location,
   type,
   level,
+  url,
   salary,
   isDashboard = false,
 }) {
@@ -12,7 +14,7 @@ export function JobCard({
     <article className="group shadow p-6 rounded-xl relative cursor-pointer">
       <div className="hidden lg:flex opacity-0 group-hover:opacity-100 transition-opacity  flex-row items-center gap-4 sm:gap-6 absolute bottom-0 pb-4 w-full bg-white">
         <Link
-          href="/apply"
+          href={isDashboard ? `/jobs/edit/${id}` : url}
           className="bg-cyan-500 transition-colors hover:bg-cyan-600 text-white py-1 sm:py-1.5 sm:px-4 px-3 rounded-md text-lg sm:text-xl"
         >
           {isDashboard ? "Edit" : "Apply now"}
