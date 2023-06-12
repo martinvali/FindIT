@@ -6,7 +6,7 @@ export const dynamic = "force-dynamic";
 
 export async function POST(req) {
   const body = await req.json();
-  const { title, url, location, experience, type, level } = body;
+  const { title, url, location, experience, type, level, salary } = body;
 
   const supabase = createServerComponentClient({ cookies });
   const user = await supabase.auth.getUser();
@@ -15,6 +15,15 @@ export async function POST(req) {
 
   const resp = await supabase
     .from("posts")
-    .insert({ user_id: id, title, location, type, experience, level, url });
+    .insert({
+      user_id: id,
+      title,
+      location,
+      type,
+      experience,
+      level,
+      url,
+      salary,
+    });
   return NextResponse.json({}, { status: 200 });
 }

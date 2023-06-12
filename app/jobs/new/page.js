@@ -1,7 +1,13 @@
 "use client";
 import { useSupabase } from "../../providers/SupabaseProvider";
 import { useRouter } from "next/navigation";
-import { NativeSelect, Checkbox, TextInput } from "@mantine/core";
+import {
+  NativeSelect,
+  Checkbox,
+  TextInput,
+  RangeSlider,
+  Text,
+} from "@mantine/core";
 import { useForm } from "@mantine/form";
 
 export default function NewJob() {
@@ -12,6 +18,7 @@ export default function NewJob() {
       location: [],
       level: "",
       type: "",
+      salary: [],
     },
 
     validate: {
@@ -87,6 +94,7 @@ export default function NewJob() {
           </div>
           <div className="flex flex-col text-left mb-6">
             <NativeSelect
+              withAsterisk
               label="Experience level"
               {...form.getInputProps("level")}
             >
@@ -102,7 +110,11 @@ export default function NewJob() {
           </div>
 
           <div className="flex flex-col text-left mb-6">
-            <NativeSelect label="Job type" {...form.getInputProps("type")}>
+            <NativeSelect
+              label="Job type"
+              withAsterisk
+              {...form.getInputProps("type")}
+            >
               <option hidden>Please choose a type</option>
               {["Full-time", "Part-time", "Intership", "Contract"].map(
                 (type) => {
@@ -110,6 +122,32 @@ export default function NewJob() {
                 }
               )}
             </NativeSelect>
+          </div>
+
+          <div className="flex flex-col text-left mb-6">
+            <Text>Salary range (optional)</Text>
+            <RangeSlider
+              {...form.getInputProps("salary")}
+              defaultValue={[500, 2500]}
+              min={500}
+              max={10000}
+              step={50}
+              marks={[
+                { value: 500, label: "500€" },
+                { value: 1500, label: "1500€" },
+                { value: 2500, label: "2500€" },
+                { value: 3500, label: "3500€" },
+                { value: 5000, label: "5000€" },
+                { value: 7500, label: "7500€" },
+              ]}
+            >
+              <option hidden>Please choose a type</option>
+              {["Full-time", "Part-time", "Intership", "Contract"].map(
+                (type) => {
+                  return <option value={type}>{type}</option>;
+                }
+              )}
+            </RangeSlider>
           </div>
 
           <button

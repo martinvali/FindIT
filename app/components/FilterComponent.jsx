@@ -29,8 +29,7 @@ export function FilterComponent({ setPosts, allPosts }) {
           (filters.type.length === 0 || filters.type.includes(post.type)) &&
           (filters.location.length === 0 ||
             filters.location.includes(post.location)) &&
-          (filters.level.length === 0 ||
-            filters.level.length.includes(post.level))
+          (filters.level.length === 0 || filters.level.includes(post.level))
         );
       });
       return filteredPosts;

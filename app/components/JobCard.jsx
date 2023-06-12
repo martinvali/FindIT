@@ -4,8 +4,8 @@ export function JobCard({
   title,
   location,
   type,
-  experience,
   level,
+  salary,
   isDashboard = false,
 }) {
   return (
@@ -42,7 +42,8 @@ export function JobCard({
         {title}
       </p>
       <p className="text-cyan-700 font-semibold mb-2.5 sm:mb-3.5 sm:text-lg lg:mb-0 lg:text-xl">
-        {level} &#8226; {location.join("/")} &#8226; {type} &#8226; 3000-4000€
+        {level} &#8226; {location.join("/")} &#8226; {type}{" "}
+        {salary.length > 0 && `• ${salary[0]}€-${salary[1]}`}
       </p>
       <div className="flex flex-row items-center gap-4 sm:gap-6 lg:hidden">
         <Link
