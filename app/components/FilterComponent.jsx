@@ -1,11 +1,11 @@
 "use client";
 //import { Search } from "./Search";
-import { Slider, Checkbox, TextInput } from "@mantine/core";
+import { RangeSlider, Checkbox, TextInput } from "@mantine/core";
 import { useState, useEffect, useRef } from "react";
 export function FilterComponent({ setPosts, allPosts }) {
   const DEFAULT_FILTERS = {
     search: "",
-    salary: "",
+    salary: [],
     type: [],
     location: [],
     level: [],
@@ -22,9 +22,19 @@ export function FilterComponent({ setPosts, allPosts }) {
   }, []);
 
   useEffect(() => {
+    console.log(filters.salary);
     setPosts(() => {
       const filteredPosts = allPosts.filter((post) => {
-        console.log(post);
+        if (
+          (filters.salary[0] &&
+            post.salary[0] &&
+            post.salary[0] < filters.salary[0]) ||
+          (filters.salary[1] &&
+            post.salary[1] &&
+            filters.salary[1] < post.salary[1])
+        ) {
+          return false;
+        }
         return (
           (filters.type.length === 0 || filters.type.includes(post.type)) &&
           (filters.location.length === 0 ||
@@ -75,7 +85,21 @@ export function FilterComponent({ setPosts, allPosts }) {
           />
           <section className="pt-4 pb-4">
             <p className="text-slate-900 font-semibold text-xl mb-3">Salary</p>
-            <Slider color="cyan" />
+            <RangeSlider
+              color="cyan"
+              min={500}
+              max={10000}
+              step={50}
+              marks={[
+                { value: 500, label: "500€" },
+                { value: 3000, label: "3000€" },
+                { value: 6000, label: "6000€" },
+                { value: 10000, label: "10000€" },
+              ]}
+              onChange={(currentRange) => {
+                setFilters({ ...filters, salary: currentRange });
+              }}
+            />
           </section>
           <section className="pt-4 pb-4">
             <p className="text-slate-900 font-semibold text-xl mb-3">
@@ -151,7 +175,7 @@ export function FilterComponent({ setPosts, allPosts }) {
           </section>
           <section className="pt-4 pb-4">
             <p className="text-slate-900 font-semibold text-xl mb-3">Level</p>
-            {["Junior", "Mid", "Senior"].map((level, index, arr) => {
+            {["Junior", "Mid-level", "Senior"].map((level, index, arr) => {
               return (
                 <Checkbox
                   key={level}
