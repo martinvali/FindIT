@@ -40,7 +40,10 @@ export function FilterComponent({ setPosts, allPosts }) {
         <section className="static w-full lg:max-w-xs p-8 shadow rounded-xl self-start">
           <header className="flex flex-row justify-between mb-6">
             <p className="text-slate-700 font-normal text-lg">Filter</p>
-            <button className="text-cyan-700 font-medium text-lg">
+            <button
+              className="text-cyan-700 font-medium text-lg"
+              onClick={() => setFilters(DEFAULT_FILTERS)}
+            >
               Clear all
             </button>
           </header>
