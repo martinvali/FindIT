@@ -54,7 +54,7 @@ export function JobCard({
       </p>
       <div className="flex flex-row items-center gap-4 sm:gap-6 lg:hidden">
         <Link
-          href="/apply"
+          href={isDashboard ? `/jobs/edit/${id}` : url}
           className="bg-cyan-500 transition-colors hover:bg-cyan-600 text-white py-1 sm:py-1.5 sm:px-4 px-3 rounded-md text-lg sm:text-xl"
         >
           {isDashboard ? "Edit" : "Apply now"}

@@ -13,7 +13,6 @@ export async function middleware(req) {
     /*   const url = new URL(req.url);
     url.pathname = "/login";
     return NextResponse.redirect(url); */
-    console.log("No session");
   }
 
   return res;

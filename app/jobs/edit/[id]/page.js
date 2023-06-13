@@ -1,9 +1,7 @@
 import NewJobPage from "../../new/page";
 
-async function getPostData(id) {
-  // const response = await supabase.from("posts").select().eq("id", id);
-}
-export default function Page({ params: { id } }) {
-  const data = getPostData();
-  return <NewJobPage isEditing={true} id={id}></NewJobPage>;
+export default async function Page({ params: { id } }) {
+  const response = await fetch(`http://localhost:3000/api/jobs/${id}`);
+  const data = await response.json();
+  return <NewJobPage post={...data}></NewJobPage>;
 }

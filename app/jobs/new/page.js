@@ -10,17 +10,28 @@ import {
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
 
-export default function NewJob({ isEditing, id }) {
-  const form = useForm({
-    initialValues: {
-      title: "",
-      url: "",
-      location: [],
-      level: "",
-      type: "",
-      salary: [],
-    },
+export default function NewJob({ post }) {
+  let initialValues = {
+    title: "",
+    url: "",
+    location: [],
+    level: "",
+    type: "",
+    salary: [],
+  };
 
+  if (post) {
+    initialValues = {
+      title: post.title,
+      url: post.url,
+      location: post.location,
+      level: post.level,
+      type: post.type,
+      salary: post.salary,
+    };
+  }
+  const form = useForm({
+    initialValues,
     validate: {
       location(value) {
         if (!value || value.length === 0 || value.length > 2) {
@@ -47,17 +58,18 @@ export default function NewJob({ isEditing, id }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(form.values);
     const validate = form.validate();
     if (!validate.hasErrors) {
-      if (!isEditing) {
+      if (!post) {
         fetch("/api/jobs", {
           method: "POST",
           body: JSON.stringify(form.values),
         });
       } else {
-        fetch(`/api/jobs/${id}`, {
+        fetch(`/api/jobs/${post.id}`, {
           method: "PUT",
-          body: JSON.stringify({ ...form.values, id }),
+          body: JSON.stringify({ ...form.values, id: post.id }),
         });
       }
     }
@@ -67,7 +79,7 @@ export default function NewJob({ isEditing, id }) {
     <main>
       <section className="pt-24 sm:pt-32 lg:pt-40 outer-container text-center">
         <h1 className="text-slate-900 text-2xl font-medium mb-6">
-          {isEditing ? "Edit a job" : "Post a new job"}
+          {post ? "Edit a job" : "Post a new job"}
         </h1>
         <form className="max-w-xl mx-auto mb-4" onSubmit={handleSubmit}>
           <div className="flex flex-col text-left mb-6">
@@ -94,11 +106,13 @@ export default function NewJob({ isEditing, id }) {
               {...form.getInputProps("location", { type: "checkbox" })}
               withAsterisk
               required
+              defaultValue={initialValues.location}
             >
-              <Checkbox value="Remote" label="Remote" />
-              <Checkbox value="Tallinn" label="Tallinn" />
-              <Checkbox value="Tartu" label="Tartu" />
-              <Checkbox value="Pärnu" label="Pärnu" />
+              {["Remote", "Tallinn", "Tartu", "Pärnu"].map((location) => {
+                return (
+                  <Checkbox key={location} value={location} label={location} />
+                );
+              })}
             </Checkbox.Group>
           </div>
           <div className="flex flex-col text-left mb-6">

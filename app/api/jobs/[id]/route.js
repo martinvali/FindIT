@@ -30,3 +30,12 @@ export async function DELETE(req, { params }) {
   const resp = await supabase.from("posts").delete().eq("id", id);
   console.log(resp);
 }
+
+export async function GET(req, { params }) {
+  const { id } = params;
+  const supabase = createServerComponentClient({ cookies });
+
+  const resp = await supabase.from("posts").select().eq("id", id);
+  const post = resp.data[0];
+  return NextResponse.json(post, { status: 200 });
+}
