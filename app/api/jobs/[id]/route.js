@@ -8,10 +8,6 @@ export async function PUT(req) {
   const body = await req.json();
   const { id, title, url, location, experience, type, level, salary } = body;
 
-  //const user = await supabase.auth.getUser();
-
-  //const userId = user.data.user.id;
-
   const post = await supabase
     .from("posts")
     .update({
@@ -26,10 +22,11 @@ export async function PUT(req) {
     })
     .eq("id", id)
     .select();
-
-  console.log(post);
 }
 
-export async function DELETE(req) {
-  console.log(req);
+export async function DELETE(req, { params }) {
+  const supabase = createServerComponentClient({ cookies });
+  const { id } = params;
+  const resp = await supabase.from("posts").delete().eq("id", id);
+  console.log(resp);
 }
