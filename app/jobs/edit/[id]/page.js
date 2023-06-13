@@ -1,3 +1,5 @@
-export default function Page() {
-  return <h1>Id page</h1>;
+import NewJobPage from "../../new/page";
+
+export default function Page({ params: { id } }) {
+  return <NewJobPage isEditing={true}></NewJobPage>;
 }

@@ -10,7 +10,7 @@ import {
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
 
-export default function NewJob() {
+export default function NewJob({ isEditing }) {
   const form = useForm({
     initialValues: {
       title: "",
@@ -57,7 +57,7 @@ export default function NewJob() {
     <main>
       <section className="pt-24 sm:pt-32 lg:pt-40 outer-container text-center">
         <h1 className="text-slate-900 text-2xl font-medium mb-6">
-          Post a new job
+          {isEditing ? "Edit a job" : "Post a new job"}
         </h1>
         <form className="max-w-xl mx-auto mb-4" onSubmit={handleSubmit}>
           <div className="flex flex-col text-left mb-6">
@@ -117,7 +117,11 @@ export default function NewJob() {
               <option hidden>Please choose a type</option>
               {["Full-time", "Part-time", "Intership", "Contract"].map(
                 (type) => {
-                  return <option value={type}>{type}</option>;
+                  return (
+                    <option value={type} key={type}>
+                      {type}
+                    </option>
+                  );
                 }
               )}
             </NativeSelect>
@@ -143,7 +147,11 @@ export default function NewJob() {
               <option hidden>Please choose a type</option>
               {["Full-time", "Part-time", "Intership", "Contract"].map(
                 (type) => {
-                  return <option value={type}>{type}</option>;
+                  return (
+                    <option value={type} key={type}>
+                      {type}
+                    </option>
+                  );
                 }
               )}
             </RangeSlider>
