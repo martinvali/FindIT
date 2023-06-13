@@ -10,7 +10,7 @@ import {
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
 
-export default function NewJob({ isEditing }) {
+export default function NewJob({ isEditing, id }) {
   const form = useForm({
     initialValues: {
       title: "",
@@ -49,7 +49,17 @@ export default function NewJob({ isEditing }) {
     e.preventDefault();
     const validate = form.validate();
     if (!validate.hasErrors) {
-      fetch("/api/jobs", { method: "POST", body: JSON.stringify(form.values) });
+      if (!isEditing) {
+        fetch("/api/jobs", {
+          method: "POST",
+          body: JSON.stringify(form.values),
+        });
+      } else {
+        fetch(`/api/jobs/${id}`, {
+          method: "PUT",
+          body: JSON.stringify({ ...form.values, id }),
+        });
+      }
     }
   };
 
