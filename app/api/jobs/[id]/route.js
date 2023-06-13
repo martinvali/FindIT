@@ -29,3 +29,7 @@ export async function PUT(req) {
 
   console.log(post);
 }
+
+export async function DELETE(req) {
+  console.log(req);
+}

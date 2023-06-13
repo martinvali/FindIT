@@ -10,6 +10,10 @@ export function JobCard({
   salary,
   isDashboard = false,
 }) {
+  async function clickedSecondaryButton(e) {
+    e.preventDefault();
+    fetch(`/api/jobs/${id}`, { method: "DELETE" });
+  }
   return (
     <article className="group shadow p-6 rounded-xl relative cursor-pointer">
       <div className="hidden lg:flex opacity-0 group-hover:opacity-100 transition-opacity  flex-row items-center gap-4 sm:gap-6 absolute bottom-0 pb-4 w-full bg-white">
@@ -19,12 +23,13 @@ export function JobCard({
         >
           {isDashboard ? "Edit" : "Apply now"}
         </Link>
-        <Link
+        <button
           href="learn-more"
+          onClick={clickedSecondaryButton}
           className="text-cyan-600 text-lg sm:text-xl font-semibold hover:text-slate-900"
         >
           {isDashboard ? "Delete" : "Learn more"}
-        </Link>
+        </button>
       </div>
       <div className="flex flex-row justify-between items-center mb-1 sm:mb-1.5 lg:mb-3.5 lg:items-start">
         <div className="flex flex-row items-center">
@@ -54,12 +59,12 @@ export function JobCard({
         >
           {isDashboard ? "Edit" : "Apply now"}
         </Link>
-        <Link
-          href="learn-more"
+        <button
+          onClick={clickedSecondaryButton}
           className="text-cyan-600 text-lg sm:text-xl font-semibold hover:text-slate-900"
         >
           {isDashboard ? "Delete" : "Learn more"}
-        </Link>
+        </button>
       </div>
     </article>
   );
