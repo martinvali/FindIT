@@ -5,7 +5,7 @@ import { useState, useEffect, useRef } from "react";
 export function FilterComponent({ setPosts, allPosts }) {
   const DEFAULT_FILTERS = {
     search: "",
-    salary: [],
+    salary: [500, 10000],
     type: [],
     location: [],
     level: [],
@@ -95,6 +95,7 @@ export function FilterComponent({ setPosts, allPosts }) {
               min={500}
               max={10000}
               step={50}
+              value={filters.salary}
               marks={[
                 { value: 500, label: "500€" },
                 { value: 3000, label: "3000€" },
