@@ -10,18 +10,9 @@ export function DesktopNav() {
   const router = useRouter();
 
   const clickedLogOut = () => {
-    supabase.auth.signOut();
-    router.refresh();
-  };
-
-  const clickedPostJob = (e) => {
-    e.preventDefault();
-
-    if (session) {
-      router.push("/jobs/new");
-    } else {
-      router.push("/login");
-    }
+    supabase.auth.signOut().then(() => {
+      router.refresh();
+    });
   };
 
   return (
@@ -65,13 +56,12 @@ export function DesktopNav() {
           </li>
         )}
         <li>
-          <a
-            onClick={clickedPostJob}
-            href=""
+          <Link
+            href={session ? "/dashboard" : "/login"}
             className="bg-cyan-500 hover:bg-cyan-600 transition-colors text-white py-1.5 px-3 rounded-md text-xl lg:py-2 lg:px-5"
           >
-            Post a job
-          </a>
+            {session ? "Dashboard" : "Post a job"}
+          </Link>
         </li>
       </ul>
     </nav>
