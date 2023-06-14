@@ -58,7 +58,6 @@ export default function NewJob({ post }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(form.values);
     const validate = form.validate();
     if (!validate.hasErrors) {
       if (!post) {

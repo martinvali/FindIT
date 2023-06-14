@@ -28,7 +28,6 @@ export async function DELETE(req, { params }) {
   const supabase = createServerComponentClient({ cookies });
   const { id } = params;
   const resp = await supabase.from("posts").delete().eq("id", id);
-  console.log(resp);
 }
 
 export async function GET(req, { params }) {
