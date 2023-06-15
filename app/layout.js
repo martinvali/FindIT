@@ -6,6 +6,7 @@ import { Mantine_Provider } from "./providers/MantineProvider.jsx";
 import { SupabaseProvider } from "./providers/SupabaseProvider";
 import { headers, cookies } from "next/headers";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import NextTopLoader from "nextjs-toploader";
 
 export const dynamic = "force-dynamic";
 
@@ -32,6 +33,7 @@ export default async function RootLayout({ children }) {
   return (
     <html className="bg-white">
       <body className={`${poppins.className} bg-white text-slate-900`}>
+        <NextTopLoader color="#06B6D4" showSpinner={false} />
         <SupabaseProvider session={session}>
           <Header />
           <Mantine_Provider> {children}</Mantine_Provider>
