@@ -5,6 +5,7 @@ export function HighLightedBlogArticle({
   id,
   date,
   title,
+  text,
   imgUrl,
   description,
 }) {
@@ -12,7 +13,7 @@ export function HighLightedBlogArticle({
     <Link
       href={{
         pathname: `/blog/${id}`,
-        query: { id, date, title, imgUrl, description },
+        query: { id, date, title, imgUrl, description, text },
       }}
       className="inline-block mb-10 sm:mb-12 md:mb-16 lg:mb-20"
     >

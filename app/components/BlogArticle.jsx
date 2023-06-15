@@ -1,9 +1,14 @@
 "use client";
 import Link from "next/link";
 
-export function BlogArticle({ id, date, title, imgUrl, description }) {
+export function BlogArticle({ id, date, title, imgUrl, description, text }) {
   return (
-    <Link href={`/blog/${id}`}>
+    <Link
+      href={{
+        pathname: `/blog/${id}`,
+        query: { id, date, title, imgUrl, description, text },
+      }}
+    >
       <article className="flex flex-col justify-start text-left">
         <img
           src={imgUrl}
