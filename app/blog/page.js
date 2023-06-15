@@ -3,7 +3,7 @@ import { HighLightedBlogArticle } from "../components/HighlightedBlogArticle";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 
-export default async function Login() {
+export default async function Blog() {
   const supabase = createServerComponentClient({ cookies });
 
   const data = await supabase.from("articles").select();

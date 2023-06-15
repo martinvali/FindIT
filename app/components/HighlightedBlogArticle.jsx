@@ -10,7 +10,10 @@ export function HighLightedBlogArticle({
 }) {
   return (
     <Link
-      href={`/blog/${id}`}
+      href={{
+        pathname: `/blog/${id}`,
+        query: { id, date, title, imgUrl, description },
+      }}
       className="inline-block mb-10 sm:mb-12 md:mb-16 lg:mb-20"
     >
       <article className="flex flex-col justify-start text-left sm:flex-row sm:gap-10">
