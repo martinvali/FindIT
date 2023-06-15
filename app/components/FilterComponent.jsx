@@ -42,6 +42,16 @@ export function FilterComponent({ setPosts, allPosts }) {
           return false;
         }
 
+        if (filters.search !== "") {
+          const lowerCaseSearch = filters.search.toLowerCase();
+          return !(
+            !post.location.join("/").toLowerCase().includes(lowerCaseSearch) &&
+            !post.type.toLowerCase().includes(lowerCaseSearch) &&
+            !post.level.toLowerCase().includes(lowerCaseSearch) &&
+            !post.title.toLowerCase().includes(lowerCaseSearch)
+          );
+        }
+
         return (
           (filters.type.length === 0 || filters.type.includes(post.type)) &&
           (filters.level.length === 0 || filters.level.includes(post.level))
