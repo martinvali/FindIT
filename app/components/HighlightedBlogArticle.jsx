@@ -7,13 +7,13 @@ export function HighLightedBlogArticle({
   title,
   text,
   imgUrl,
-  description,
+  preview,
 }) {
   return (
     <Link
       href={{
         pathname: `/blog/${id}`,
-        query: { id, date, title, imgUrl, description, text },
+        query: { id, date, title, imgUrl, text },
       }}
       className="inline-block mb-10 sm:mb-12 md:mb-16 lg:mb-20"
     >
@@ -33,7 +33,7 @@ export function HighLightedBlogArticle({
             {title}
           </h2>
           <p className="text-slate-800 text-base font-normal md:text-lg lg:text-xl">
-            {description}
+            {preview}
           </p>
         </div>
       </article>

@@ -14,7 +14,10 @@ export default function BlogArticle({ searchParams }) {
           className="rounded-lg max-w-2xl w-full mx-auto md:max-w-4xl mb-10 lg:mb-14"
           alt="Blog article image"
         />
-        <p className="text-left">{text}</p>
+
+        {text.split("\n").map((paragraph) => {
+          return <p className="text-left mb-3">{paragraph}</p>;
+        })}
       </section>
     </main>
   );
