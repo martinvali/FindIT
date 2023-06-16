@@ -10,10 +10,15 @@ export default function Login() {
     e.preventDefault();
     const email = e.target.querySelector("input[name=email]").value;
     const password = e.target.querySelector("input[name=password]").value;
-
+    const company = e.target.querySelector("input[name=company]").value;
     await supabase.auth.signUp({
       email,
       password,
+      options: {
+        data: {
+          company,
+        },
+      },
     });
   };
 
@@ -22,6 +27,7 @@ export default function Login() {
       <section className="pt-24 sm:pt-32 lg:pt-40 outer-container text-center">
         <h1 className="text-slate-900 text-2xl font-medium mb-6">Sign up</h1>
         <form className="max-w-lg mx-auto mb-4" onSubmit={handleSubmit}>
+          <FormInput label="Company name" type="text" name="company" />
           <FormInput label="Email" type="email" name="email" />
           <FormInput label="Password" type="password" name="password" />
           <button
