@@ -8,21 +8,26 @@ import { SettingsPanel } from "./components/SettingsPanel";
 
 export default function Dashboard() {
   const { supabase } = useSupabase();
-  const [jobs, setJobs] = useState([]);
+  const [userData, setUserData] = useState([]);
   const router = useRouter();
 
   useEffect(() => {
     async function getUserPosts() {
       const userResponse = await supabase.auth.getUser();
-      console.log(userResponse);
-      const userId = userResponse.data.user.id;
+      const user = userResponse.data.user;
+      const userId = user.id;
+      const company = user.user_metadata.company;
       const jobsResponse = await supabase
         .from("posts")
         .select()
         .eq("user_id", userId);
 
       const jobs = jobsResponse.data;
-      setJobs(jobs);
+      setUserData({
+        jobs,
+        company,
+        userId,
+      });
     }
     getUserPosts();
   }, []);
@@ -32,21 +37,25 @@ export default function Dashboard() {
       <section className="pt-24 sm:pt-32 lg:pt-40 outer-container text-center">
         <h1 className="text-slate-900 text-2xl font-medium mb-6">Dashboard</h1>
       </section>
-      <section className="outer-container">
-        <Tabs defaultValue="My jobs">
+      <section className="outer-container flex flex-col items-center">
+        <Tabs defaultValue="My jobs" className="!inline-block">
           <Tabs.List justify="center">
             <Tabs.Tab value="My jobs">My jobs</Tabs.Tab>
             <Tabs.Tab value="Settings">Settings</Tabs.Tab>
           </Tabs.List>
 
           <Tabs.Panel value="My jobs" pt="xs">
-            {jobs.map((job) => {
-              return <JobCard {...job} key={job.id} isDashboard={true} />;
-            })}
+            {userData.jobs &&
+              userData.jobs.map((job) => {
+                return <JobCard {...job} key={job.id} isDashboard={true} />;
+              })}
           </Tabs.Panel>
 
           <Tabs.Panel value="Settings" pt="xs">
-            <SettingsPanel />
+            <SettingsPanel
+              company={userData.company}
+              userId={userData.userId}
+            />
           </Tabs.Panel>
         </Tabs>
       </section>
