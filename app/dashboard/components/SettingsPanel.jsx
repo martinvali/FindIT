@@ -2,47 +2,73 @@ import { FileButton, Button, Group, Text } from "@mantine/core";
 import { useEffect, useState } from "react";
 import { useSupabase } from "@/app/providers/SupabaseProvider";
 
-export function SettingsPanel({ company, userId }) {
+export function SettingsPanel({ company, userId, logoUrl }) {
   const [file, setFile] = useState("");
   const { supabase } = useSupabase();
 
-  async function addCompanyImage() {
-    const filePath = `/${userId}/logo`;
+  console.log(logoUrl);
 
+  async function addCompanyImage(logoPath) {
     const { uploadResponse, uploadError } = await supabase.storage
       .from("profileimages")
-      .upload(filePath, file);
+      .upload(logoPath, file);
 
-    const { urlResponse, urlError } = await supabase.storage
+    console.log("Upload:", uploadResponse, uploadError);
+
+    const urlResponse = await supabase.storage
       .from("profileimages")
-      .getPublicUrl(filePath);
+      .getPublicUrl(logoPath);
 
-    const url = urlResponse.data;
-    console.log(url);
+    console.log("URLresponse", urlResponse);
+
+    const { publicUrl } = urlResponse.data;
+
+    console.log("publicurl", publicUrl);
+
+    const { saveUrlResponse, saveUrlError } = await supabase
+      .from("users")
+      .insert({
+        user_id: userId,
+        logo_url: publicUrl,
+      });
+
+    console.log("Saveurl", saveUrlResponse, saveUrlError);
 
     const { userResponse, userError } = await supabase.auth.updateUser({
-      data: { avatar_url: url },
+      data: { avatar_url: publicUrl },
     });
+
+    console.log("user", userResponse, userError);
   }
 
-  async function updateCompanyImage() {
-    return await supabase.storage
-      .from("profileimages")
-      .insert(`/${userId}/logo`, file);
+  async function updateCompanyImage(logoPath) {
+    await supabase.storage.from("profileimages").update(logoPath, file);
   }
 
   useEffect(() => {
-    if (file.name) {
+    if (file && file.name) {
+      const logoPath = `/${userId}/logo`;
       async function imageChanged() {
-        const response = await addCompanyImage();
-        console.log(data, error);
+        if (!logoUrl) {
+          const response = await addCompanyImage(logoPath);
+        } else {
+          const response = await updateCompanyImage(logoPath);
+        }
       }
+
       imageChanged();
     }
   }, [file]);
 
   return (
     <>
+      {logoUrl ? (
+        <div className="max-w-xs">
+          <img src={logoUrl} alt={company} />
+        </div>
+      ) : (
+        company && <div>{company[0].toUpperCase()}</div>
+      )}
       <p>{company}</p>
       <Group justify="center">
         <FileButton accept="image/png,image/jpeg" onChange={setFile}>

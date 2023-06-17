@@ -22,11 +22,19 @@ export default function Dashboard() {
         .select()
         .eq("user_id", userId);
 
+      const logoResponse = await supabase
+        .from("users")
+        .select("logo_url")
+        .eq("user_id", userId);
+
+      const logoUrl = logoResponse?.data[0]?.logo_url;
+
       const jobs = jobsResponse.data;
       setUserData({
         jobs,
         company,
         userId,
+        logoUrl,
       });
     }
     getUserPosts();
@@ -55,6 +63,7 @@ export default function Dashboard() {
             <SettingsPanel
               company={userData.company}
               userId={userData.userId}
+              logoUrl={userData.logoUrl}
             />
           </Tabs.Panel>
         </Tabs>
