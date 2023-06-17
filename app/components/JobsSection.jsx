@@ -10,9 +10,12 @@ export function JobsSection() {
   const allPosts = useRef([]);
   const [posts, setPosts] = useState([]);
 
+  console.log(posts);
   useEffect(() => {
     async function fetchAllPosts() {
-      const response = await supabase.from("posts").select();
+      const response = await supabase
+        .from("posts")
+        .select("*, users(company_name, logo_url)");
       const { data } = response;
       allPosts.current = data;
       setPosts(data);

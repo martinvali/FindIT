@@ -9,11 +9,13 @@ export function JobCard({
   url,
   salary,
   isDashboard = false,
+  users: { company_name, logo_url },
 }) {
   async function clickedSecondaryButton(e) {
     e.preventDefault();
     fetch(`/api/jobs/${id}`, { method: "DELETE" });
   }
+
   return (
     <article className="group shadow p-6 rounded-xl relative cursor-pointer">
       <div className="hidden lg:flex opacity-0 group-hover:opacity-100 transition-opacity  flex-row items-center gap-4 sm:gap-6 absolute bottom-0 pb-4 w-full bg-white">
@@ -37,7 +39,9 @@ export function JobCard({
             B
           </div>
           <div className="flex flex-col justify-start lg:justify-between">
-            <p className="text-cyan-500 font-semibold text-lg">BOLT</p>
+            <p className="text-cyan-500 font-semibold text-lg">
+              {company_name}
+            </p>
             <p className="hidden lg:block text-slate-900 text-2xl font-medium">
               {title}
             </p>

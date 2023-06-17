@@ -11,7 +11,7 @@ export default function Login() {
     const email = e.target.querySelector("input[name=email]").value;
     const password = e.target.querySelector("input[name=password]").value;
     const company = e.target.querySelector("input[name=company]").value;
-    await supabase.auth.signUp({
+    const response = await supabase.auth.signUp({
       email,
       password,
       options: {

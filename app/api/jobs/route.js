@@ -12,10 +12,10 @@ export async function POST(req) {
 
   const user = await supabase.auth.getUser();
 
-  const id = user.data.user.id;
+  const userId = user.data.user.id;
 
   const resp = await supabase.from("posts").insert({
-    user_id: id,
+    user_id: userId,
     title,
     location,
     type,
@@ -24,5 +24,7 @@ export async function POST(req) {
     url,
     salary,
   });
+
+  console.log(resp);
   return NextResponse.json({}, { status: 200 });
 }
