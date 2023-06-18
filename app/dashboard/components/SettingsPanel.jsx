@@ -9,7 +9,7 @@ export function SettingsPanel({ company, userId, logoUrl }) {
   async function addCompanyImage(logoPath) {
     const { uploadResponse, uploadError } = await supabase.storage
       .from("profileimages")
-      .upload(logoPath, file, { cacheControl: "60" });
+      .upload(logoPath, file, { cacheControl: "1" });
 
     console.log("Upload:", uploadResponse, uploadError);
 
@@ -35,7 +35,7 @@ export function SettingsPanel({ company, userId, logoUrl }) {
   async function updateCompanyImage(logoPath) {
     const updateResponse = await supabase.storage
       .from("profileimages")
-      .update(logoPath, file, { cacheControl: "60" });
+      .update(logoPath, file, { cacheControl: "1" });
 
     console.log("Update", updateResponse);
   }
@@ -57,17 +57,32 @@ export function SettingsPanel({ company, userId, logoUrl }) {
 
   return (
     <>
-      {logoUrl ? (
-        <div className="max-w-xs">
-          <img src={logoUrl} alt={company} />
-        </div>
-      ) : (
-        company && <div>{company[0].toUpperCase()}</div>
-      )}
-      <p>{company}</p>
+      <div className="flex flex-row items-center gap-4 mb-5">
+        {logoUrl ? (
+          <div className="w-16 h-16">
+            <img
+              src={logoUrl}
+              alt={company}
+              className="rounded-md w-full h-full"
+            />
+          </div>
+        ) : (
+          company && <p>{company[0].toUpperCase()}</p>
+        )}
+        <p
+          className="text-cyan-500 font-semibold text-3xl
+        "
+        >
+          {company}
+        </p>
+      </div>
       <Group justify="center">
         <FileButton accept="image/png,image/jpeg" onChange={setFile}>
-          {(props) => <Button {...props}>Update image</Button>}
+          {(props) => (
+            <Button className="w-full" {...props}>
+              Update image
+            </Button>
+          )}
         </FileButton>
       </Group>
       {file && (
