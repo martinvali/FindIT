@@ -6,12 +6,10 @@ export function SettingsPanel({ company, userId, logoUrl }) {
   const [file, setFile] = useState("");
   const { supabase } = useSupabase();
 
-  console.log(logoUrl);
-
   async function addCompanyImage(logoPath) {
     const { uploadResponse, uploadError } = await supabase.storage
       .from("profileimages")
-      .upload(logoPath, file);
+      .upload(logoPath, file, { cacheControl: "60" });
 
     console.log("Upload:", uploadResponse, uploadError);
 
@@ -21,28 +19,25 @@ export function SettingsPanel({ company, userId, logoUrl }) {
 
     console.log("URLresponse", urlResponse);
 
+    console.log("user id ", userId);
     const { publicUrl } = urlResponse.data;
 
     console.log("publicurl", publicUrl);
 
-    const { saveUrlResponse, saveUrlError } = await supabase
+    const saveUrlResponse = await supabase
       .from("users")
-      .insert({
-        user_id: userId,
-        logo_url: publicUrl,
-      });
+      .update({ logo_url: publicUrl })
+      .eq("user_id", userId);
 
-    console.log("Saveurl", saveUrlResponse, saveUrlError);
-
-    const { userResponse, userError } = await supabase.auth.updateUser({
-      data: { avatar_url: publicUrl },
-    });
-
-    console.log("user", userResponse, userError);
+    console.log("last response", saveUrlResponse);
   }
 
   async function updateCompanyImage(logoPath) {
-    await supabase.storage.from("profileimages").update(logoPath, file);
+    const updateResponse = await supabase.storage
+      .from("profileimages")
+      .update(logoPath, file, { cacheControl: "60" });
+
+    console.log("Update", updateResponse);
   }
 
   useEffect(() => {

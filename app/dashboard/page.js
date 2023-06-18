@@ -30,8 +30,6 @@ export default function Dashboard() {
       const { logo_url: logoUrl, company_name: company } =
         companyResponse?.data[0];
 
-      console.log(logoUrl, company);
-
       const jobs = jobsResponse.data;
       setUserData({
         jobs,
