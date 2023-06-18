@@ -62,9 +62,13 @@ export default function NewJob({ post }) {
     const validate = form.validate();
     if (!validate.hasErrors) {
       if (!post) {
+        let { salary } = form.values;
+        console.log(salary);
+        if (salary[0] === 500 && salary[1] === 500) salary = [];
+
         fetch("/api/jobs", {
           method: "POST",
-          body: JSON.stringify(form.values),
+          body: JSON.stringify({ ...form.values, salary }),
         });
       } else {
         fetch(`/api/jobs/${post.id}`, {
