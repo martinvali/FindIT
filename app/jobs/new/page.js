@@ -75,6 +75,11 @@ export default function NewJob({ post }) {
     }
   };
 
+  const clearSalary = (e) => {
+    e.preventDefault();
+    form.setFieldValue("salary", [500, 500]);
+  };
+
   return (
     <main>
       <section className="pt-24 sm:pt-32 lg:pt-40 outer-container text-center">
@@ -152,7 +157,15 @@ export default function NewJob({ post }) {
           </div>
 
           <div className="flex flex-col text-left mb-6">
-            <Text>Salary range (optional)</Text>
+            <div className="flex flex-row justify-between">
+              <Text>Salary range (optional)</Text>
+              <button
+                onClick={clearSalary}
+                className="text-cyan-500 font-semibold"
+              >
+                Clear
+              </button>
+            </div>
             <RangeSlider
               {...form.getInputProps("salary")}
               defaultValue={[500, 500]}
