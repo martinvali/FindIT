@@ -16,18 +16,21 @@ export default function Dashboard() {
       const userResponse = await supabase.auth.getUser();
       const user = userResponse.data.user;
       const userId = user.id;
-      const company = user.user_metadata.company;
+
       const jobsResponse = await supabase
         .from("posts")
         .select()
         .eq("user_id", userId);
 
-      const logoResponse = await supabase
+      const companyResponse = await supabase
         .from("users")
-        .select("logo_url")
+        .select("logo_url, company_name")
         .eq("user_id", userId);
 
-      const logoUrl = logoResponse?.data[0]?.logo_url;
+      const { logo_url: logoUrl, company_name: company } =
+        companyResponse?.data[0];
+
+      console.log(logoUrl, company);
 
       const jobs = jobsResponse.data;
       setUserData({
@@ -55,7 +58,15 @@ export default function Dashboard() {
           <Tabs.Panel value="My jobs" pt="xs">
             {userData.jobs &&
               userData.jobs.map((job) => {
-                return <JobCard {...job} key={job.id} isDashboard={true} />;
+                return (
+                  <JobCard
+                    {...job}
+                    key={job.id}
+                    company={userData.company}
+                    logoUrl={userData.logoUrl}
+                    isDashboard={true}
+                  />
+                );
               })}
           </Tabs.Panel>
 

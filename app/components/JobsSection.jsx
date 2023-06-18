@@ -10,7 +10,6 @@ export function JobsSection() {
   const allPosts = useRef([]);
   const [posts, setPosts] = useState([]);
 
-  console.log(posts);
   useEffect(() => {
     async function fetchAllPosts() {
       const response = await supabase
@@ -29,7 +28,14 @@ export function JobsSection() {
       <FilterComponent setPosts={setPosts} allPosts={allPosts.current} />
       <section className="flex flex-col gap-6 sm:gap-7 md:gap-8 basis-full">
         {posts.map((post) => {
-          return <JobCard {...post} key={post.id} />;
+          return (
+            <JobCard
+              {...post}
+              key={post.id}
+              company={post.users.company_name}
+              logoUrl={post.users.logo_url}
+            />
+          );
         })}
       </section>
     </section>

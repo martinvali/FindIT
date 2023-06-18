@@ -9,7 +9,8 @@ export function JobCard({
   url,
   salary,
   isDashboard = false,
-  users: { company_name, logo_url },
+  company,
+  logoUrl,
 }) {
   async function clickedSecondaryButton(e) {
     e.preventDefault();
@@ -36,12 +37,14 @@ export function JobCard({
       <div className="flex flex-row justify-between items-center mb-1 sm:mb-1.5 lg:mb-3.5 lg:items-start">
         <div className="flex flex-row items-center">
           <div className="text-white flex justify-center items-center w-6 h-6 rounded-md bg-green-300 mr-2 lg:w-14 lg:h-14 lg:text-3xl lg:mr-4">
-            B
+            {logoUrl ? (
+              <img src={logoUrl} alt={company + "_logo"} />
+            ) : (
+              company[0].toUpperCase()
+            )}
           </div>
           <div className="flex flex-col justify-start lg:justify-between">
-            <p className="text-cyan-500 font-semibold text-lg">
-              {company_name}
-            </p>
+            <p className="text-cyan-500 font-semibold text-lg">{company}</p>
             <p className="hidden lg:block text-slate-900 text-2xl font-medium">
               {title}
             </p>
