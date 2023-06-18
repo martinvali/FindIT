@@ -43,9 +43,7 @@ export function MobileNav() {
           <li>
             <Link href="/blog">Blog</Link>
           </li>
-          <li>
-            <Link href="/contact">Contact</Link>
-          </li>
+
           {session ? (
             <li>
               <button onClick={clickedLogOut}>Log out</button>

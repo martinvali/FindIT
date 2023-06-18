@@ -28,14 +28,7 @@ export function DesktopNav() {
             Blog
           </Link>
         </li>
-        <li>
-          <Link
-            href="/contact"
-            className="hover:text-cyan-700 transition-colors"
-          >
-            Contact
-          </Link>
-        </li>
+
         {session ? (
           <li>
             <button
