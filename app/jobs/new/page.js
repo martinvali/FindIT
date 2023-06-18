@@ -17,7 +17,7 @@ export default function NewJob({ post }) {
     location: [],
     level: "",
     type: "",
-    salary: [],
+    salary: [500, 500],
   };
 
   if (post) {
@@ -30,6 +30,7 @@ export default function NewJob({ post }) {
       salary: post.salary,
     };
   }
+
   const form = useForm({
     initialValues,
     validate: {
@@ -154,17 +155,16 @@ export default function NewJob({ post }) {
             <Text>Salary range (optional)</Text>
             <RangeSlider
               {...form.getInputProps("salary")}
-              defaultValue={[500, 2500]}
+              defaultValue={[500, 500]}
               min={500}
               max={10000}
               step={50}
               marks={[
                 { value: 500, label: "500€" },
-                { value: 1500, label: "1500€" },
                 { value: 2500, label: "2500€" },
-                { value: 3500, label: "3500€" },
                 { value: 5000, label: "5000€" },
                 { value: 7500, label: "7500€" },
+                { value: 10000, label: "10000€" },
               ]}
             >
               <option hidden>Please choose a type</option>
