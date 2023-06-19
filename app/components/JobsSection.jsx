@@ -4,6 +4,7 @@ import { JobCard } from "./JobCard";
 import { FilterComponent } from "./FilterComponent";
 import { useSupabase } from "../providers/SupabaseProvider";
 import { useEffect, useState, useRef } from "react";
+import { notifications } from "@mantine/notifications";
 
 export function JobsSection() {
   const { supabase } = useSupabase();
@@ -13,13 +14,29 @@ export function JobsSection() {
 
   useEffect(() => {
     async function fetchAllPosts() {
-      const response = await supabase
-        .from("posts")
-        .select("*, users(company_name, logo_url)");
-      const { data } = response;
-      allPosts.current = data;
-      setPosts(data);
-      setIsLoading(false);
+      try {
+        const { data, error } = await supabase
+          .from("posts")
+          .select("*, users(company_name, logo_url)");
+
+        if (error) {
+          notifications.show({
+            title: "Something went wrong.",
+            message: "Please refresh the page to try again.",
+            color: "red",
+          });
+          return;
+        }
+        allPosts.current = data;
+        setPosts(data);
+        setIsLoading(false);
+      } catch (e) {
+        notifications.show({
+          title: "Something went wrong.",
+          message: "Please refresh the page to try again.",
+          color: "red",
+        });
+      }
     }
 
     fetchAllPosts();
