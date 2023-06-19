@@ -12,6 +12,7 @@ export function MobileNav() {
   const router = useRouter();
 
   const clickedLogOut = async () => {
+    setIsOpen(false);
     notifications.show({
       loading: true,
       title: "Loading...",
@@ -59,10 +60,14 @@ export function MobileNav() {
         </button>
         <ul className="flex flex-col gap-6 text-2xl">
           <li>
-            <Link href="/">Jobs</Link>
+            <Link href="/" onClick={() => setIsOpen(false)}>
+              Jobs
+            </Link>
           </li>
           <li>
-            <Link href="/blog">Blog</Link>
+            <Link href="/blog" onClick={() => setIsOpen(false)}>
+              Blog
+            </Link>
           </li>
 
           {session ? (
@@ -71,11 +76,16 @@ export function MobileNav() {
             </li>
           ) : (
             <li>
-              <Link href="/login">Log in</Link>
+              <Link href="/login" onClick={() => setIsOpen(false)}>
+                Log in
+              </Link>
             </li>
           )}
           <li>
-            <Link href={session ? "/dashboard" : "/signup"}>
+            <Link
+              href={session ? "/dashboard" : "/signup"}
+              onClick={() => setIsOpen(false)}
+            >
               {session ? "Dashboard" : "Post a job"}
             </Link>
           </li>
