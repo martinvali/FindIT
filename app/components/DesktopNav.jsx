@@ -3,16 +3,35 @@
 import Link from "next/link";
 import { useSupabase } from "../providers/SupabaseProvider";
 import { useRouter } from "next/navigation";
+import { notifications } from "@mantine/notifications";
 
 export function DesktopNav() {
   const { supabase, session } = useSupabase();
 
   const router = useRouter();
 
-  const clickedLogOut = () => {
-    supabase.auth.signOut().then(() => {
-      router.refresh();
+  const clickedLogOut = async () => {
+    notifications.show({
+      loading: true,
+      title: "Loading...",
     });
+    const { error } = await supabase.auth.signOut();
+    notifications.clean();
+
+    if (error) {
+      notifications.show({
+        title: "Something went wrong.",
+        message: error.message,
+        color: "red",
+      });
+      return;
+    }
+
+    notifications.show({
+      title: "We're sad to see you go.",
+      color: "green",
+    });
+    router.refresh();
   };
 
   return (

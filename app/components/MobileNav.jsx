@@ -4,14 +4,35 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useSupabase } from "../providers/SupabaseProvider";
 import Link from "next/link";
+import { notifications } from "@mantine/notifications";
 
 export function MobileNav() {
   const [isOpen, setIsOpen] = useState(false);
   const { supabase, session } = useSupabase();
   const router = useRouter();
 
-  const clickedLogOut = () => {
-    supabase.auth.signOut();
+  const clickedLogOut = async () => {
+    notifications.show({
+      loading: true,
+      title: "Loading...",
+    });
+    const { error } = await supabase.auth.signOut();
+
+    notifications.clean();
+
+    if (error) {
+      notifications.show({
+        title: "Something went wrong.",
+        message: error.message,
+        color: "red",
+      });
+      return;
+    }
+
+    notifications.show({
+      title: "We're sad to see you go.",
+      color: "green",
+    });
     router.refresh();
   };
 
