@@ -3,23 +3,41 @@ import { FormInput } from "../components/FormInput";
 import { useSupabase } from "../providers/SupabaseProvider";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { notifications } from "@mantine/notifications";
 
 export default function Login() {
   const { supabase } = useSupabase();
   const router = useRouter();
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    const email = e.target.querySelector("input[name=email]").value;
-    const password = e.target.querySelector("input[name=password]").value;
+    try {
+      e.preventDefault();
+      const email = e.target.querySelector("input[name=email]").value;
+      const password = e.target.querySelector("input[name=password]").value;
 
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
 
-    if (data.user) {
-      router.push("/");
+      if (error) {
+        notifications.show({
+          title: "Something went wrong.",
+          message: error.message,
+          color: "red",
+        });
+        return;
+      }
+      if (data.user) {
+        router.push("/");
+      }
+    } catch (e) {
+      notifications.show({
+        title: "Something went wrong.",
+        message: "Please refresh the page to try again.",
+        color: "red",
+      });
+      return;
     }
   };
 
