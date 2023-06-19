@@ -9,6 +9,7 @@ import {
   Text,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
+import { notifications } from "@mantine/notifications";
 
 export default function NewJob({ post }) {
   let initialValues = {
@@ -58,6 +59,10 @@ export default function NewJob({ post }) {
   const router = useRouter();
 
   const handleSubmit = async (e) => {
+    notifications.show({
+      title: "Testing notifcation",
+      message: "heyhopsti",
+    });
     e.preventDefault();
     const validate = form.validate();
     if (!validate.hasErrors) {

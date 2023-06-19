@@ -1,10 +1,12 @@
 import "./globals.css";
 import "@mantine/core/styles.css";
+import "@mantine/notifications/styles.css";
 import { Header } from "./components/Header";
 import { Poppins } from "next/font/google";
 import { Mantine_Provider } from "./providers/MantineProvider.jsx";
 import { SupabaseProvider } from "./providers/SupabaseProvider";
 import { headers, cookies } from "next/headers";
+import { Notifications } from "@mantine/notifications";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import NextTopLoader from "nextjs-toploader";
 import Link from "next/link";
@@ -37,7 +39,10 @@ export default async function RootLayout({ children }) {
         <NextTopLoader color="#06B6D4" showSpinner={false} />
         <SupabaseProvider session={session}>
           <Header />
-          <Mantine_Provider> {children}</Mantine_Provider>
+          <Mantine_Provider>
+            <Notifications position="top-center" />
+            {children}
+          </Mantine_Provider>
           <footer className="outer-container pt-20 md:pt-24 pb-10 md:pb-14">
             <Link href="/" className="inline-block mb-4">
               <img src="/logo.svg" alt="FindIT logo" className="w-20 lg:w-24" />
