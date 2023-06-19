@@ -29,6 +29,10 @@ export default function Login() {
         return;
       }
       if (data.user) {
+        notifications.show({
+          title: "Welcome back!",
+          color: "green",
+        });
         router.push("/");
       }
     } catch (e) {
