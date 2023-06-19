@@ -54,7 +54,7 @@ export function MobileNav() {
             </li>
           )}
           <li>
-            <Link href={session ? "/dashboard" : "/login"}>
+            <Link href={session ? "/dashboard" : "/signup"}>
               {session ? "Dashboard" : "Post a job"}
             </Link>
           </li>

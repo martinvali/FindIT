@@ -50,7 +50,7 @@ export function DesktopNav() {
         )}
         <li>
           <Link
-            href={session ? "/dashboard" : "/login"}
+            href={session ? "/dashboard" : "/signup"}
             className="bg-cyan-500 hover:bg-cyan-600 transition-colors text-white py-1.5 px-3 rounded-md text-xl lg:py-2 lg:px-5"
           >
             {session ? "Dashboard" : "Post a job"}
