@@ -15,10 +15,17 @@ export default function Login() {
       const email = e.target.querySelector("input[name=email]").value;
       const password = e.target.querySelector("input[name=password]").value;
 
+      notifications.show({
+        loading: true,
+        title: "Loading...",
+      });
+
       const { data, error } = await supabase.auth.signInWithPassword({
         email,
         password,
       });
+
+      notifications.clean();
 
       if (error) {
         notifications.show({

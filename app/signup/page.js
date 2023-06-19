@@ -13,6 +13,11 @@ export default function Login() {
       const email = e.target.querySelector("input[name=email]").value;
       const password = e.target.querySelector("input[name=password]").value;
       const company = e.target.querySelector("input[name=company]").value;
+      notifications.show({
+        loading: true,
+        title: "Loading...",
+      });
+
       const { data, error } = await supabase.auth.signUp({
         email,
         password,
@@ -22,6 +27,8 @@ export default function Login() {
           },
         },
       });
+
+      notifications.clean();
 
       if (error) {
         notifications.show({
