@@ -10,7 +10,7 @@ import { Notifications } from "@mantine/notifications";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import NextTopLoader from "nextjs-toploader";
 import Link from "next/link";
-export const dynamic = "force-dynamic";
+//export const dynamic = "force-dynamic";
 
 const poppins = Poppins({
   subsets: ["latin"],
