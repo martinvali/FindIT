@@ -2,24 +2,48 @@
 import { FormInput } from "../components/FormInput";
 import { useSupabase } from "../providers/SupabaseProvider";
 import Link from "next/link";
+import { notifications } from "@mantine/notifications";
 
 export default function Login() {
   const { supabase } = useSupabase();
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    const email = e.target.querySelector("input[name=email]").value;
-    const password = e.target.querySelector("input[name=password]").value;
-    const company = e.target.querySelector("input[name=company]").value;
-    const response = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        data: {
-          company,
+    try {
+      e.preventDefault();
+      const email = e.target.querySelector("input[name=email]").value;
+      const password = e.target.querySelector("input[name=password]").value;
+      const company = e.target.querySelector("input[name=company]").value;
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          data: {
+            company,
+          },
         },
-      },
-    });
+      });
+
+      if (error) {
+        notifications.show({
+          title: "Something went wrong.",
+          message: "Please refresh the page to try again.",
+          color: "red",
+        });
+        return;
+      }
+
+      notifications.show({
+        title: "Thank you!",
+        message: "Please check your inbox to confirm your email.",
+        color: "green",
+      });
+    } catch (e) {
+      notifications.show({
+        title: "Something went wrong.",
+        message: "Please refresh the page to try again.",
+        color: "red",
+      });
+    }
   };
 
   return (
