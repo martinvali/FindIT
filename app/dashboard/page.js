@@ -44,7 +44,9 @@ export default function Dashboard() {
   return (
     <main>
       <section className="pt-24 sm:pt-32 lg:pt-40 outer-container text-center">
-        <h1 className="text-slate-900 text-2xl font-medium mb-6">Dashboard</h1>
+        <h1 className="text-slate-900 text-3xl sm:text-4xl lg:text-5xl font-medium mb-7 sm:mb-8 md:mb-12 lg:mb-16">
+          Dashboard
+        </h1>
       </section>
       <section className="outer-container flex flex-col items-center">
         <Tabs defaultValue="My jobs" className="!inline-block">
