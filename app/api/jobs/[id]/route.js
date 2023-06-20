@@ -40,9 +40,25 @@ export async function PUT(req) {
 }
 
 export async function DELETE(req, { params }) {
-  const supabase = createServerComponentClient({ cookies });
-  const { id } = params;
-  const resp = await supabase.from("posts").delete().eq("id", id);
+  try {
+    const supabase = createServerComponentClient({ cookies });
+    const { id } = params;
+    const { error } = await supabase.from("posts").delete().eq("id", id);
+
+    if (error) {
+      return NextResponse.json(
+        { error: error.message },
+        { status: error.status }
+      );
+    }
+
+    return NextResponse.json({}, { status: 200 });
+  } catch (e) {
+    return NextResponse.json(
+      { error: "Something went wrong." },
+      { status: 400 }
+    );
+  }
 }
 
 export async function GET(req, { params }) {

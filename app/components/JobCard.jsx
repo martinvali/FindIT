@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { notifications } from "@mantine/notifications";
+import { useRouter } from "next/navigation";
 
 export function JobCard({
   id,
@@ -12,9 +14,39 @@ export function JobCard({
   company,
   logoUrl,
 }) {
+  const router = useRouter();
+
   async function clickedSecondaryButton(e) {
-    e.preventDefault();
-    fetch(`/api/jobs/${id}`, { method: "DELETE" });
+    try {
+      e.preventDefault();
+      notifications.clean();
+      notifications.show({
+        loading: true,
+        title: "Loading...",
+      });
+      const response = await fetch(`/api/jobs/${id}`, { method: "DELETE" });
+
+      notifications.clean();
+      if (response.ok) {
+        router.refresh();
+        return notifications.show({
+          title: "Successfully deleted the job ad.",
+          color: "green",
+        });
+      }
+      return notifications.show({
+        title: "Something went wrong.",
+        message: "Please refresh the page to try again.",
+        color: "red",
+      });
+    } catch (e) {
+      notifications.clean();
+      return notifications.show({
+        title: "Something went wrong.",
+        message: "Please refresh the page to try again.",
+        color: "red",
+      });
+    }
   }
 
   return (
