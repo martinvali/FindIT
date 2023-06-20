@@ -15,6 +15,11 @@ export default function Dashboard() {
     async function getUserPosts() {
       const userResponse = await supabase.auth.getUser();
       const user = userResponse.data.user;
+
+      if (!user) {
+        router.replace("/login");
+      }
+
       const userId = user.id;
 
       const jobsResponse = await supabase
