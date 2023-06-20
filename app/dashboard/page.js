@@ -65,6 +65,7 @@ export default function Dashboard() {
                     company={userData.company}
                     logoUrl={userData.logoUrl}
                     isDashboard={true}
+                    setUserData={setUserData}
                   />
                 );
               })}

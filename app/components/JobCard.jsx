@@ -13,6 +13,7 @@ export function JobCard({
   isDashboard = false,
   company,
   logoUrl,
+  setUserData,
 }) {
   const router = useRouter();
 
@@ -28,7 +29,12 @@ export function JobCard({
 
       notifications.clean();
       if (response.ok) {
-        router.refresh();
+        setUserData((userData) => {
+          return {
+            ...userData,
+            jobs: userData.jobs.filter((job) => job.id !== id),
+          };
+        });
         return notifications.show({
           title: "Successfully deleted the job ad.",
           color: "green",
