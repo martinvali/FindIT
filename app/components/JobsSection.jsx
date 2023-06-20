@@ -5,6 +5,7 @@ import { FilterComponent } from "./FilterComponent";
 import { useSupabase } from "../providers/SupabaseProvider";
 import { useEffect, useState, useRef } from "react";
 import { notifications } from "@mantine/notifications";
+import { JobCardSkeleton } from "./JobCardSkeleton";
 
 export function JobsSection() {
   const { supabase } = useSupabase();
@@ -48,15 +49,7 @@ export function JobsSection() {
       <section className="flex flex-col gap-6 sm:gap-7 md:gap-8 basis-full">
         {isLoading &&
           [0, 1, 2, 3, 4].map((id) => {
-            return (
-              <div
-                className="shadow animate-pulse rounded-xl w-full h-36 p-6"
-                key={id}
-              >
-                <div className="w-3/4 max-w-xl h-10 rounded-md animate-pulse bg-slate-100 mb-7"></div>
-                <div className="w-2/4 max-w-lg h-6 rounded-md animate-pulse bg-slate-100"></div>
-              </div>
-            );
+            return <JobCardSkeleton key={id} />;
           })}
         {posts.length > 0 && !isLoading
           ? posts.map((post) => {

@@ -5,10 +5,12 @@ import { useEffect, useState } from "react";
 import { JobCard } from "../components/JobCard";
 import { Tabs } from "@mantine/core";
 import { SettingsPanel } from "./components/SettingsPanel";
+import { JobCardSkeleton } from "../components/JobCardSkeleton";
 
 export default function Dashboard() {
   const { supabase } = useSupabase();
   const [userData, setUserData] = useState([]);
+  const [isLoading, setIsloading] = useState(true);
   const router = useRouter();
 
   useEffect(() => {
@@ -42,6 +44,8 @@ export default function Dashboard() {
         userId,
         logoUrl,
       });
+
+      setIsloading(false);
     }
     getUserPosts();
   }, []);
@@ -54,14 +58,19 @@ export default function Dashboard() {
         </h1>
       </section>
       <section className="outer-container flex flex-col items-center">
-        <Tabs defaultValue="My jobs" className="!inline-block">
-          <Tabs.List justify="center">
+        <Tabs defaultValue="My jobs" className="w-full !flex !flex-col">
+          <Tabs.List justify="center" className="!inline-flex self-center">
             <Tabs.Tab value="My jobs">My jobs</Tabs.Tab>
             <Tabs.Tab value="Settings">Settings</Tabs.Tab>
           </Tabs.List>
 
           <Tabs.Panel value="My jobs" pt="xs">
-            {userData.jobs &&
+            {isLoading &&
+              [0, 1, 2, 3, 4].map((id) => {
+                return <JobCardSkeleton key={id} />;
+              })}
+            {!isLoading &&
+              userData.jobs &&
               userData.jobs.map((job) => {
                 return (
                   <JobCard
