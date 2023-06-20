@@ -5,26 +5,39 @@ import { cookies } from "next/headers";
 export const dynamic = "force-dynamic";
 
 export async function POST(req) {
-  const supabase = createServerComponentClient({ cookies });
+  try {
+    const supabase = createServerComponentClient({ cookies });
 
-  const body = await req.json();
-  const { title, url, location, experience, type, level, salary } = body;
+    const body = await req.json();
+    const { title, url, location, experience, type, level, salary } = body;
 
-  const user = await supabase.auth.getUser();
+    const user = await supabase.auth.getUser();
 
-  const userId = user.data.user.id;
+    const userId = user.data.user.id;
 
-  const resp = await supabase.from("posts").insert({
-    user_id: userId,
-    title,
-    location,
-    type,
-    experience,
-    level,
-    url,
-    salary,
-  });
+    const { data, error } = await supabase.from("posts").insert({
+      user_id: userId,
+      title,
+      location,
+      type,
+      experience,
+      level,
+      url,
+      salary,
+    });
 
-  console.log(resp);
-  return NextResponse.json({}, { status: 200 });
+    if (error) {
+      return NextResponse.json(
+        { error: error.message },
+        { status: error.status }
+      );
+    }
+
+    return NextResponse.json({}, { status: 200 });
+  } catch (e) {
+    return NextResponse.json(
+      { error: "Something went wrong." },
+      { status: 400 }
+    );
+  }
 }

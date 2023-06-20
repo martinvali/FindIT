@@ -3,25 +3,40 @@ import { NextResponse } from "next/server";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 
 export async function PUT(req) {
-  const supabase = createServerComponentClient({ cookies });
+  try {
+    const supabase = createServerComponentClient({ cookies });
 
-  const body = await req.json();
-  const { id, title, url, location, experience, type, level, salary } = body;
+    const body = await req.json();
+    const { id, title, url, location, experience, type, level, salary } = body;
 
-  const post = await supabase
-    .from("posts")
-    .update({
-      id,
-      title,
-      url,
-      location,
-      experience,
-      type,
-      level,
-      salary,
-    })
-    .eq("id", id)
-    .select();
+    const { data, error } = await supabase
+      .from("posts")
+      .update({
+        id,
+        title,
+        url,
+        location,
+        experience,
+        type,
+        level,
+        salary,
+      })
+      .eq("id", id);
+
+    if (error) {
+      return NextResponse.json(
+        { error: error.message },
+        { status: error.status }
+      );
+    }
+
+    return NextResponse.json({}, { status: 200 });
+  } catch (e) {
+    return NextResponse.json(
+      { error: "Something went wrong." },
+      { status: 400 }
+    );
+  }
 }
 
 export async function DELETE(req, { params }) {

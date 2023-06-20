@@ -1,6 +1,4 @@
 "use client";
-import { useSupabase } from "../../providers/SupabaseProvider";
-import { useRouter } from "next/navigation";
 import {
   NativeSelect,
   Checkbox,
@@ -8,10 +6,12 @@ import {
   RangeSlider,
   Text,
 } from "@mantine/core";
+import { useRouter } from "next/navigation";
 import { useForm } from "@mantine/form";
 import { notifications } from "@mantine/notifications";
 
 export default function NewJob({ post }) {
+  const router = useRouter();
   let initialValues = {
     title: "",
     url: "",
@@ -55,33 +55,67 @@ export default function NewJob({ post }) {
     },
   });
 
-  const { supabase } = useSupabase();
-  const router = useRouter();
-
   const handleSubmit = async (e) => {
     notifications.show({
-      title: "Testing notifcation",
-      message: "heyhopsti",
+      title: "Loading...",
+      loading: true,
     });
+
     e.preventDefault();
     const validate = form.validate();
     if (!validate.hasErrors) {
       if (!post) {
         let { salary } = form.values;
-        console.log(salary);
+
         if (salary[0] === 500 && salary[1] === 500) salary = [];
 
-        fetch("/api/jobs", {
+        const response = await fetch("/api/jobs", {
           method: "POST",
           body: JSON.stringify({ ...form.values, salary }),
         });
+
+        notifications.clean();
+
+        if (response.ok) {
+          notifications.show({
+            title: "Successfully created a new job post!",
+            color: "green",
+          });
+          return router.replace("/");
+        }
+
+        return notifications.show({
+          title: "Something went wrong.",
+          message: "Please refresh the page to try again.",
+          color: "red",
+        });
       } else {
-        fetch(`/api/jobs/${post.id}`, {
+        const response = await fetch(`/api/jobs/${post.id}`, {
           method: "PUT",
           body: JSON.stringify({ ...form.values, id: post.id }),
         });
+
+        notifications.clean();
+
+        if (response.ok) {
+          notifications.show({
+            title: "Successfully edited the job post!",
+            color: "green",
+          });
+          return router.replace("/dashboard");
+        }
+        return notifications.show({
+          title: "Something went wrong.",
+          message: "Please refresh the page to try again.",
+          color: "red",
+        });
       }
     }
+    notifications.clean();
+    notifications.show({
+      title: "Please double-check the job's details.",
+      color: "red",
+    });
   };
 
   const clearSalary = (e) => {
