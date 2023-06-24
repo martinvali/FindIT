@@ -13,6 +13,25 @@ body {
   color-scheme: only light !important;
 }
 
+*:focus {
+  outline: solid 2px #06b6d4 !important;
+}
+
+.user-not-tabbing *:focus {
+  outline: none !important;
+}
+
+input {
+  border: 1px solid #cbd5e1 !important;
+}
+
+.mantine-TextInput-input:focus,
+.mantine-TextInput-input:active,
+input:focus,
+input:active {
+  border: 1px solid #06b6d4 !important;
+}
+
 @layer components {
   .outer-container {
     @apply px-4 sm:px-6 md:px-8 max-w-7xl m-auto;

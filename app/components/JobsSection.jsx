@@ -14,6 +14,14 @@ export function JobsSection() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    function keyDown(e) {
+      console.log(e.key);
+      if (e.key === "Tab") {
+        document.body.classList.remove("user-not-tabbing");
+      }
+    }
+    window.addEventListener("keydown", keyDown);
+
     async function fetchAllPosts() {
       try {
         const { data, error } = await supabase
@@ -41,6 +49,8 @@ export function JobsSection() {
     }
 
     fetchAllPosts();
+
+    return () => window.removeEventListener("keydown", keyDown);
   }, []);
 
   return (

@@ -215,6 +215,7 @@ export default function NewJob({ post }) {
               min={500}
               max={10000}
               step={50}
+              color="#06B6D4"
               marks={[
                 { value: 500, label: "500€" },
                 { value: 2500, label: "2500€" },

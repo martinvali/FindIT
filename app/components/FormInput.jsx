@@ -9,7 +9,7 @@ export function FormInput({ type, label, name }) {
         name={name}
         id={name}
         required
-        className="rounded-lg p-2 shadow w-full border-none outline-cyan-700 outline-offset-1"
+        className="rounded-lg p-2 w-full border-none outline-cyan-700 outline-offset-1"
       />
     </div>
   );

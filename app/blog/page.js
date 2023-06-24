@@ -9,7 +9,6 @@ export default async function Blog() {
   const data = await supabase.from("articles").select();
 
   const articles = data.data;
-  console.log(articles);
 
   return (
     <main>

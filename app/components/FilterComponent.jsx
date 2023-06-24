@@ -94,18 +94,18 @@ export function FilterComponent({ setPosts, allPosts }) {
               <img
                 src="/searchIcon.svg"
                 alt="Search icon"
-                className="bg-cyan-50 h-full rounded-r-lg p-2.5"
+                className="bg-cyan-50 h-full rounded-r-lg p-2.5 cursor-pointer"
               />
             }
           />
           <section className="pt-4 pb-4">
             <p className="text-slate-900 font-semibold text-xl mb-3">Salary</p>
             <RangeSlider
-              color="cyan"
               min={500}
               max={10000}
               step={50}
               value={filters.salary}
+              color="#06b6d4"
               marks={[
                 { value: 500, label: "500€" },
                 { value: 3000, label: "3000€" },
@@ -128,7 +128,7 @@ export function FilterComponent({ setPosts, allPosts }) {
                     key={type}
                     size="md"
                     label={type}
-                    color="cyan"
+                    color="#06b6d4"
                     onChange={(e) => {
                       const { checked } = e.target;
 
@@ -164,7 +164,7 @@ export function FilterComponent({ setPosts, allPosts }) {
                     key={location}
                     size="md"
                     label={location}
-                    color="cyan"
+                    color="#06b6d4"
                     onChange={(e) => {
                       const { checked } = e.target;
 
@@ -197,7 +197,7 @@ export function FilterComponent({ setPosts, allPosts }) {
                   key={level}
                   size="md"
                   label={level}
-                  color="cyan"
+                  color="#06b6d4"
                   onChange={(e) => {
                     const { checked } = e.target;
 

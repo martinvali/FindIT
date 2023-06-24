@@ -35,7 +35,9 @@ export default async function RootLayout({ children }) {
   } = await supabase.auth.getSession();
   return (
     <html className="bg-white">
-      <body className={`${poppins.className} bg-white text-slate-900`}>
+      <body
+        className={`${poppins.className} bg-white text-slate-900  user-not-tabbing`}
+      >
         <NextTopLoader color="#06B6D4" showSpinner={false} />
         <SupabaseProvider session={session}>
           <Header />

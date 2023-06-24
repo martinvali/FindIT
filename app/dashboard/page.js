@@ -58,7 +58,14 @@ export default function Dashboard() {
         </h1>
       </section>
       <section className="outer-container flex flex-col items-center">
-        <Tabs defaultValue="My jobs" className="w-full !flex !flex-col">
+        <Tabs
+          defaultValue="My jobs"
+          className="w-full !flex !flex-col"
+          classNames={{
+            panel: "flex flex-col gap-6 sm:gap-7 md:gap-8",
+          }}
+          color="#06b6d4"
+        >
           <Tabs.List justify="center" className="!inline-flex self-center">
             <Tabs.Tab value="My jobs">My jobs</Tabs.Tab>
             <Tabs.Tab value="Settings">Settings</Tabs.Tab>
