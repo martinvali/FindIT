@@ -92,7 +92,7 @@ export function JobCard({
             </p>
           </div>
         </div>
-        <p className="font-normal sm:text-lg text-slate-700">13.05.2023</p>
+        {/* <p className="font-normal sm:text-lg text-slate-700">13.05.2023</p> */}
       </div>
       <p className="font-medium text-2xl sm:text-3xl mb-2.5 sm:mb-3.5 text-slate-900 lg:hidden">
         {title}
