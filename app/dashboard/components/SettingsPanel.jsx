@@ -57,18 +57,23 @@ export function SettingsPanel({ company, userId, logoUrl }) {
 
   return (
     <>
-      <div className="flex flex-row items-center gap-4 mb-5">
-        {logoUrl ? (
-          <div className="w-16 h-16">
+      <div className="flex flex-row justify-center items-center gap-4">
+        <div className="w-16 h-16 rounded-md bg-cyan-500">
+          {logoUrl ? (
             <img
               src={logoUrl}
               alt={company}
               className="rounded-md w-full h-full"
             />
-          </div>
-        ) : (
-          company && <p>{company[0].toUpperCase()}</p>
-        )}
+          ) : (
+            company && (
+              <p className="w-full h-full text-center flex items-center justify-center text-white text-4xl">
+                {company[0].toUpperCase()}
+              </p>
+            )
+          )}
+        </div>
+
         <p
           className="text-cyan-500 font-semibold text-3xl
         "
@@ -76,10 +81,15 @@ export function SettingsPanel({ company, userId, logoUrl }) {
           {company}
         </p>
       </div>
-      <Group justify="center">
-        <FileButton accept="image/png,image/jpeg" onChange={setFile}>
+      <Group justify="center" className="w-full">
+        <FileButton
+          accept="image/png,image/jpeg"
+          onChange={setFile}
+          color="#06b6d4"
+          className="!w-full !text-lg max-w-md"
+        >
           {(props) => (
-            <Button className="w-full" {...props}>
+            <Button className="!w-full" {...props}>
               Update image
             </Button>
           )}

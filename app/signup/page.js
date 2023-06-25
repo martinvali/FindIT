@@ -72,7 +72,7 @@ export default function Login() {
           Already have an account?{" "}
           <Link
             href="/login"
-            className="z-10 relative after:absolute after:bottom-0.5 after:left-1/2	after:-translate-x-1/2 after:w-[110%] after:h-1 after:bg-cyan-400 after:-z-10 after:rounded-tl-xl"
+            className="font-medium z-10 relative after:absolute after:bottom-0.5 after:left-1/2	after:-translate-x-1/2 after:w-[110%] after:h-1 after:bg-cyan-400 after:-z-10 after:rounded-tl-xl"
           >
             Sign in
           </Link>

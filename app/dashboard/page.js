@@ -66,12 +66,12 @@ export default function Dashboard() {
           }}
           color="#06b6d4"
         >
-          <Tabs.List justify="center" className="!inline-flex self-center">
+          <Tabs.List justify="center" className="!inline-flex self-center mb-4">
             <Tabs.Tab value="My jobs">My jobs</Tabs.Tab>
             <Tabs.Tab value="Settings">Settings</Tabs.Tab>
           </Tabs.List>
 
-          <Tabs.Panel value="My jobs" pt="xs">
+          <Tabs.Panel value="My jobs">
             {isLoading &&
               [0, 1, 2, 3, 4].map((id) => {
                 return <JobCardSkeleton key={id} />;
@@ -92,7 +92,10 @@ export default function Dashboard() {
               })}
           </Tabs.Panel>
 
-          <Tabs.Panel value="Settings" pt="xs">
+          <Tabs.Panel
+            value="Settings"
+            className="shadow p-6 rounded-xl max-w-md w-full self-center"
+          >
             <SettingsPanel
               company={userData.company}
               userId={userData.userId}
