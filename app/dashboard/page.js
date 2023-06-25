@@ -62,7 +62,7 @@ export default function Dashboard() {
           defaultValue="My jobs"
           className="w-full !flex !flex-col"
           classNames={{
-            panel: "flex flex-col gap-6 sm:gap-7 md:gap-8",
+            panel: "flex flex-col gap-1.5 sm:gap-2.5 md:gap-3",
           }}
           color="#06b6d4"
         >

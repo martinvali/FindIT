@@ -1,53 +1,111 @@
 import { FileButton, Button, Group, Text } from "@mantine/core";
 import { useEffect, useState } from "react";
 import { useSupabase } from "@/app/providers/SupabaseProvider";
+import { notifications } from "@mantine/notifications";
 
 export function SettingsPanel({ company, userId, logoUrl }) {
   const [file, setFile] = useState("");
   const { supabase } = useSupabase();
 
   async function addCompanyImage(logoPath) {
-    const { uploadResponse, uploadError } = await supabase.storage
-      .from("profileimages")
-      .upload(logoPath, file, { cacheControl: "1" });
+    try {
+      const { data: uploadData, error: uploadError } = await supabase.storage
+        .from("profileimages")
+        .upload(logoPath, file, { cacheControl: "1" });
 
-    console.log("Upload:", uploadResponse, uploadError);
+      if (uploadError) {
+        notifications.show({
+          title: "Something went wrong.",
+          message: uploadError.message,
+          color: "red",
+        });
+        return;
+      }
 
-    const urlResponse = await supabase.storage
-      .from("profileimages")
-      .getPublicUrl(logoPath);
+      const { data: urlData, error: urlError } = await supabase.storage
+        .from("profileimages")
+        .getPublicUrl(logoPath);
 
-    console.log("URLresponse", urlResponse);
+      if (urlError) {
+        notifications.show({
+          title: "Something went wrong.",
+          message: urlError.message,
+          color: "red",
+        });
+        return;
+      }
 
-    console.log("user id ", userId);
-    const { publicUrl } = urlResponse.data;
+      const { publicUrl } = urlData;
 
-    console.log("publicurl", publicUrl);
+      const { error: updateError } = await supabase
+        .from("users")
+        .update({ logo_url: publicUrl })
+        .eq("user_id", userId);
 
-    const saveUrlResponse = await supabase
-      .from("users")
-      .update({ logo_url: publicUrl })
-      .eq("user_id", userId);
+      if (updateError) {
+        notifications.show({
+          title: "Something went wrong.",
+          message: updateError.message,
+          color: "red",
+        });
+        return;
+      }
 
-    console.log("last response", saveUrlResponse);
+      notifications.show({
+        title: "Successfully added company image.",
+        message:
+          "Please note that it might take a few minutes for the changes to take effect.",
+        color: "green",
+      });
+    } catch (e) {
+      notifications.show({
+        title: "Something went wrong.",
+        message: "Please refresh the page to try again.",
+        color: "red",
+      });
+      return;
+    }
   }
 
   async function updateCompanyImage(logoPath) {
-    const updateResponse = await supabase.storage
-      .from("profileimages")
-      .update(logoPath, file, { cacheControl: "1" });
+    try {
+      const { updateError } = await supabase.storage
+        .from("profileimages")
+        .update(logoPath, file, { cacheControl: "1" });
 
-    console.log("Update", updateResponse);
+      if (updateError) {
+        notifications.show({
+          title: "Something went wrong.",
+          message: updateError.message,
+          color: "red",
+        });
+        return;
+      }
+
+      notifications.show({
+        title: "Successfully updated company image.",
+        message:
+          "Please note that it might take a few minutes for the changes to take effect.",
+        color: "green",
+      });
+    } catch (e) {
+      notifications.show({
+        title: "Something went wrong.",
+        message: "Please refresh the page to try again.",
+        color: "red",
+      });
+      return;
+    }
   }
 
   useEffect(() => {
     if (file && file.name) {
       const logoPath = `/${userId}/logo`;
-      async function imageChanged() {
+      function imageChanged() {
         if (!logoUrl) {
-          const response = await addCompanyImage(logoPath);
+          addCompanyImage(logoPath);
         } else {
-          const response = await updateCompanyImage(logoPath);
+          updateCompanyImage(logoPath);
         }
       }
 
@@ -57,7 +115,7 @@ export function SettingsPanel({ company, userId, logoUrl }) {
 
   return (
     <>
-      <div className="flex flex-row justify-center items-center gap-4">
+      <div className="flex flex-row justify-center items-center gap-4 mb-3">
         <div className="w-16 h-16 rounded-md bg-cyan-500">
           {logoUrl ? (
             <img
@@ -96,7 +154,7 @@ export function SettingsPanel({ company, userId, logoUrl }) {
         </FileButton>
       </Group>
       {file && (
-        <Text size="sm" ta="center" mt="sm">
+        <Text size="sm" ta="center">
           Picked file: {file.name}
         </Text>
       )}
