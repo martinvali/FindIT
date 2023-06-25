@@ -63,10 +63,14 @@ export default function Dashboard() {
           className="w-full !flex !flex-col"
           classNames={{
             panel: "flex flex-col gap-1.5 sm:gap-2.5 md:gap-3",
+            tab: "!text-lg font-medium",
           }}
           color="#06b6d4"
         >
-          <Tabs.List justify="center" className="!inline-flex self-center mb-4">
+          <Tabs.List
+            justify="center"
+            className="!inline-flex self-center mb-4 lg:mb-6"
+          >
             <Tabs.Tab value="My jobs">My jobs</Tabs.Tab>
             <Tabs.Tab value="Settings">Settings</Tabs.Tab>
           </Tabs.List>
