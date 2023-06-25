@@ -76,8 +76,15 @@ export default function Dashboard() {
               [0, 1, 2, 3, 4].map((id) => {
                 return <JobCardSkeleton key={id} />;
               })}
+
+            {!isLoading && userData.jobs.length === 0 && (
+              <p className="mt-6 text-center text-xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold">
+                No job ads were found :(
+              </p>
+            )}
+
             {!isLoading &&
-              userData.jobs &&
+              userData.jobs.length > 0 &&
               userData.jobs.map((job) => {
                 return (
                   <JobCard
