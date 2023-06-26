@@ -22,13 +22,17 @@ export default function NewJob({ post }) {
   };
 
   if (post) {
+    let salary = post.salary;
+    if (post.salary.length === 0) {
+      salary = [500, 500];
+    }
     initialValues = {
       title: post.title,
       url: post.url,
       location: post.location,
       level: post.level,
       type: post.type,
-      salary: post.salary,
+      salary,
     };
   }
 
@@ -64,11 +68,10 @@ export default function NewJob({ post }) {
     e.preventDefault();
     const validate = form.validate();
     if (!validate.hasErrors) {
+      let { salary } = form.values;
+
       if (!post) {
-        let { salary } = form.values;
-
         if (salary[0] === 500 && salary[1] === 500) salary = [];
-
         const response = await fetch("/api/jobs", {
           method: "POST",
           body: JSON.stringify({ ...form.values, salary }),
@@ -90,9 +93,11 @@ export default function NewJob({ post }) {
           color: "red",
         });
       } else {
+        if (salary[0] === 500 && salary[1] === 500) salary = [];
+
         const response = await fetch(`/api/jobs/${post.id}`, {
           method: "PUT",
-          body: JSON.stringify({ ...form.values, id: post.id }),
+          body: JSON.stringify({ ...form.values, salary, id: post.id }),
         });
 
         notifications.clean();
