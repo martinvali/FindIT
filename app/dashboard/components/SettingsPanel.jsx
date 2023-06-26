@@ -143,11 +143,10 @@ export function SettingsPanel({ company, userId, logoUrl }) {
         <FileButton
           accept="image/png,image/jpeg"
           onChange={setFile}
-          color="#06b6d4"
-          className="!w-full !text-lg max-w-md"
+          className="!w-full !text-lg max-w-md !bg-cyan-500"
         >
           {(props) => (
-            <Button className="!w-full" {...props}>
+            <Button className="!w-full !bg-cyan-500" {...props}>
               Update image
             </Button>
           )}
