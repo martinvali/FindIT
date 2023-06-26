@@ -62,15 +62,16 @@ export function JobCard({
           href={isDashboard ? `/jobs/edit/${id}` : url}
           className="bg-cyan-500 transition-colors hover:bg-cyan-600 text-white py-1 sm:py-1.5 sm:px-4 px-3 rounded-md text-lg sm:text-xl"
         >
-          {isDashboard ? "Edit" : "Apply now"}
+          {isDashboard ? "Edit" : "Learn more"}
         </Link>
-        <button
-          href="learn-more"
-          onClick={clickedSecondaryButton}
-          className="text-cyan-600 text-lg sm:text-xl font-semibold hover:text-slate-900"
-        >
-          {isDashboard ? "Delete" : "Learn more"}
-        </button>
+        {isDashboard && (
+          <button
+            onClick={clickedSecondaryButton}
+            className="text-cyan-600 text-lg sm:text-xl font-semibold hover:text-slate-900"
+          >
+            Delete
+          </button>
+        )}
       </div>
       <div className="flex flex-row justify-between items-center mb-1 sm:mb-1.5 lg:mb-3.5 lg:items-start">
         <div className="flex flex-row items-center">
