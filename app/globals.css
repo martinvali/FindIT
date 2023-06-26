@@ -28,7 +28,8 @@ input {
 .mantine-TextInput-input:focus,
 .mantine-TextInput-input:active,
 input:focus,
-input:active {
+input:active,
+input:checked {
   border: 1px solid #06b6d4 !important;
 }
 

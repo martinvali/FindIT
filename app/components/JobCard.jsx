@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { notifications } from "@mantine/notifications";
-import { useRouter } from "next/navigation";
 
 export function JobCard({
   id,
@@ -15,8 +14,6 @@ export function JobCard({
   logoUrl,
   setUserData,
 }) {
-  const router = useRouter();
-
   async function clickedSecondaryButton(e) {
     try {
       e.preventDefault();
@@ -55,11 +52,16 @@ export function JobCard({
     }
   }
 
+  function createClickableURL(url) {
+    if (url.trim().indexOf("http") == 0) return url;
+    return "//" + url;
+  }
+
   return (
     <article className="group shadow p-6 rounded-xl relative cursor-pointer">
       <div className="hidden lg:flex opacity-0 group-hover:opacity-100 transition-opacity  flex-row items-center gap-4 sm:gap-6 absolute bottom-0 pb-4 w-full bg-white">
         <Link
-          href={isDashboard ? `/jobs/edit/${id}` : url}
+          href={isDashboard ? `/jobs/edit/${id}` : createClickableURL(url)}
           className="bg-cyan-500 transition-colors hover:bg-cyan-600 text-white py-1 sm:py-1.5 sm:px-4 px-3 rounded-md text-lg sm:text-xl"
         >
           {isDashboard ? "Edit" : "Learn more"}

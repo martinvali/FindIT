@@ -39,6 +39,24 @@ export default function NewJob({ post }) {
   const form = useForm({
     initialValues,
     validate: {
+      title(value) {
+        if (!value) {
+          return "Please enter a job title.";
+        }
+      },
+      url(value) {
+        if (!value) {
+          return "Please enter the application URL.";
+        }
+
+        const expression =
+          "(https?://(?:www.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9].[^s]{2,}|www.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9].[^s]{2,}|https?://(?:www.|(?!www))[a-zA-Z0-9]+.[^s]{2,}|www.[a-zA-Z0-9]+.[^s]{2,})";
+        const regex = new RegExp(expression);
+
+        if (!value.match(regex)) {
+          return "Please enter a valid application URL.";
+        }
+      },
       location(value) {
         if (!value || value.length === 0 || value.length > 2) {
           return "Please select up to 2 locations.";
@@ -53,7 +71,7 @@ export default function NewJob({ post }) {
 
       type(value) {
         if (!value) {
-          return "Please choose a type.";
+          return "Please choose a job type.";
         }
       },
     },
