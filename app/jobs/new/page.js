@@ -164,7 +164,12 @@ export default function NewJob({ post }) {
             >
               {["Remote", "Tallinn", "Tartu", "Pärnu"].map((location) => {
                 return (
-                  <Checkbox key={location} value={location} label={location} />
+                  <Checkbox
+                    key={location}
+                    color="#06b6d4"
+                    value={location}
+                    label={location}
+                  />
                 );
               })}
             </Checkbox.Group>
