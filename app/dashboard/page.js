@@ -6,6 +6,7 @@ import { JobCard } from "../components/JobCard";
 import { Tabs } from "@mantine/core";
 import { SettingsPanel } from "./components/SettingsPanel";
 import { JobCardSkeleton } from "../components/JobCardSkeleton";
+import Link from "next/link";
 
 export default function Dashboard() {
   const { supabase } = useSupabase();
@@ -60,7 +61,7 @@ export default function Dashboard() {
       <section className="outer-container flex flex-col items-center">
         <Tabs
           defaultValue="My jobs"
-          className="w-full !flex !flex-col"
+          className="w-full !flex !flex-col mb-6 sm:mb-8 md:mb-10 lg:mb-12"
           classNames={{
             panel: "flex flex-col gap-1.5 sm:gap-2.5 md:gap-3",
             tab: "!text-lg font-medium",
@@ -69,7 +70,7 @@ export default function Dashboard() {
         >
           <Tabs.List
             justify="center"
-            className="!inline-flex self-center mb-4 lg:mb-6"
+            className="!inline-flex self-center mb-4 md:mb-5 lg:mb-7"
           >
             <Tabs.Tab value="My jobs">My jobs</Tabs.Tab>
             <Tabs.Tab value="Settings">Settings</Tabs.Tab>
@@ -114,6 +115,12 @@ export default function Dashboard() {
             />
           </Tabs.Panel>
         </Tabs>
+        <Link
+          href="/jobs/new"
+          className="bg-cyan-500 hover:bg-cyan-600 transition-colors text-white py-1.5 px-3 rounded-md text-xl md:text-2xl lg:py-2 lg:px-5"
+        >
+          Post a new job
+        </Link>
       </section>
     </main>
   );
