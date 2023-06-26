@@ -10,8 +10,6 @@ import { useRouter } from "next/navigation";
 import { useForm } from "@mantine/form";
 import { notifications } from "@mantine/notifications";
 
-export const revalidate = 0;
-
 export default function NewJob({ post }) {
   const router = useRouter();
   let initialValues = {
@@ -109,7 +107,8 @@ export default function NewJob({ post }) {
             title: "Successfully edited the job post!",
             color: "green",
           });
-          return router.replace("/dashboard");
+          router.replace("/dashboard");
+          return router.refresh();
         }
         return notifications.show({
           title: "Something went wrong.",
