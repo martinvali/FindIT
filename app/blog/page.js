@@ -9,6 +9,7 @@ export default async function Blog() {
   const data = await supabase.from("articles").select();
 
   const articles = data.data;
+  const lastArticleIndex = articles.length - 1;
 
   return (
     <main>
@@ -18,16 +19,16 @@ export default async function Blog() {
         </h1>
 
         <HighLightedBlogArticle
-          title={articles[0].title}
-          text={articles[0].text}
-          date={articles[0].created_at}
-          id={articles[0].id}
-          preview={articles[0].preview}
-          imgUrl="https://images.unsplash.com/photo-1686726754280-de6be7bd8229?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
+          title={articles[lastArticleIndex].title}
+          text={articles[lastArticleIndex].text}
+          date={articles[lastArticleIndex].created_at}
+          id={articles[lastArticleIndex].id}
+          preview={articles[lastArticleIndex].preview}
+          imgUrl={articles[lastArticleIndex].img_url}
         />
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 sm:gap-8 ">
-          {articles.slice(1).map((article) => {
+          {articles.slice(0, lastArticleIndex).map((article) => {
             return (
               <BlogArticle
                 key={article.id}
@@ -36,7 +37,7 @@ export default async function Blog() {
                 description={article.preview}
                 text={article.text}
                 date={article.created_at}
-                imgUrl="https://images.unsplash.com/photo-1686726754280-de6be7bd8229?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
+                imgUrl={article.img_url}
               />
             );
           })}
