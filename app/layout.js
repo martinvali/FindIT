@@ -21,6 +21,14 @@ export const metadata = {
   description:
     "Looking for a job in the technology sector in Estonia? Browse a wide variety of remote and Estonian-based IT-positions.",
   colorScheme: "light only",
+  icons: [
+    {
+      rel: "apple-touch-icon",
+      sizes: "180x180",
+      type: "image/png",
+      url: "/apple-icon",
+    },
+  ],
 };
 
 export default async function RootLayout({ children }) {
