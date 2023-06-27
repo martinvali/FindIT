@@ -111,12 +111,14 @@ export function JobCard({
         >
           {isDashboard ? "Edit" : "Apply now"}
         </Link>
-        <button
-          onClick={clickedSecondaryButton}
-          className="text-cyan-600 text-lg sm:text-xl font-semibold hover:text-slate-900"
-        >
-          {isDashboard ? "Delete" : "Learn more"}
-        </button>
+        {isDashboard && (
+          <button
+            onClick={clickedSecondaryButton}
+            className="text-cyan-600 text-lg sm:text-xl font-semibold hover:text-slate-900"
+          >
+            Delete
+          </button>
+        )}
       </div>
     </article>
   );

@@ -33,6 +33,12 @@ input:checked {
   border: 1px solid #06b6d4 !important;
 }
 
+.mantine-InputWrapper-label {
+  font-size: 1.125rem !important;
+  line-height: 1.75rem !important;
+  margin-bottom: 0.5rem !important;
+}
+
 @layer components {
   .outer-container {
     @apply px-4 sm:px-6 md:px-8 max-w-7xl m-auto w-full;

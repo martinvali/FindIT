@@ -180,16 +180,20 @@ export default function NewJob({ post }) {
               required
               defaultValue={initialValues.location}
             >
-              {["Remote", "Tallinn", "Tartu", "Pärnu"].map((location) => {
-                return (
-                  <Checkbox
-                    key={location}
-                    color="#06b6d4"
-                    value={location}
-                    label={location}
-                  />
-                );
-              })}
+              {["Remote", "Tallinn", "Tartu", "Pärnu"].map(
+                (location, i, arr) => {
+                  return (
+                    <Checkbox
+                      className={i === arr.length - 1 ? "" : "mb-2"}
+                      size="md"
+                      key={location}
+                      color="#06b6d4"
+                      value={location}
+                      label={location}
+                    />
+                  );
+                }
+              )}
             </Checkbox.Group>
           </div>
           <div className="flex flex-col text-left mb-6">
