@@ -61,22 +61,22 @@ export function JobsSection() {
           [0, 1, 2, 3, 4].map((id) => {
             return <JobCardSkeleton key={id} />;
           })}
-        {posts.length > 0 && !isLoading ? (
-          posts.map((post) => {
-            return (
-              <JobCard
-                {...post}
-                key={post.id}
-                company={post.users.company_name}
-                logoUrl={post.users.logo_url}
-              />
-            );
-          })
-        ) : (
-          <p className="mt-6 text-center text-xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold">
-            No job ads were found :(
-          </p>
-        )}
+        {posts.length > 0 && !isLoading
+          ? posts.map((post) => {
+              return (
+                <JobCard
+                  {...post}
+                  key={post.id}
+                  company={post.users.company_name}
+                  logoUrl={post.users.logo_url}
+                />
+              );
+            })
+          : !isLoading && (
+              <p className="mt-6 text-center text-xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold">
+                No job ads were found :(
+              </p>
+            )}
       </section>
     </section>
   );
