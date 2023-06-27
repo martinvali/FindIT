@@ -6,6 +6,7 @@ import { useSupabase } from "../providers/SupabaseProvider";
 import { useEffect, useState, useRef } from "react";
 import { notifications } from "@mantine/notifications";
 import { JobCardSkeleton } from "./JobCardSkeleton";
+import { Suspense } from "react";
 
 export function JobsSection() {
   const { supabase } = useSupabase();
@@ -15,7 +16,6 @@ export function JobsSection() {
 
   useEffect(() => {
     function keyDown(e) {
-      console.log(e.key);
       if (e.key === "Tab") {
         document.body.classList.remove("user-not-tabbing");
       }
@@ -55,7 +55,9 @@ export function JobsSection() {
 
   return (
     <section className="flex-col max-w-7xl pt-24 outer-container flex gap-6 lg:flex-row">
-      <FilterComponent setPosts={setPosts} allPosts={allPosts.current} />
+      <Suspense>
+        <FilterComponent setPosts={setPosts} allPosts={allPosts.current} />
+      </Suspense>
       <section className="flex flex-col gap-6 sm:gap-7 md:gap-8 basis-full">
         {isLoading &&
           [0, 1, 2, 3, 4].map((id) => {
