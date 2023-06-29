@@ -180,7 +180,7 @@ export default function NewJob({ post }) {
               required
               defaultValue={initialValues.location}
             >
-              {["Remote", "Tallinn", "Tartu", "Pärnu"].map(
+              {["Remote", "Tallinn", "Tartu", "Hybrid"].map(
                 (location, i, arr) => {
                   return (
                     <Checkbox
