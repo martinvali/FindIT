@@ -116,7 +116,11 @@ export function SettingsPanel({ company, userId, logoUrl }) {
   return (
     <>
       <div className="flex flex-row justify-center items-center gap-4 mb-3">
-        <div className="w-16 h-16 rounded-md bg-cyan-500">
+        <div
+          className={`w-16 h-16 rounded-md ${
+            logoUrl ? "bg-transparent" : "bg-cyan-500"
+          }`}
+        >
           {logoUrl ? (
             <img
               src={logoUrl}
