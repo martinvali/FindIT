@@ -77,7 +77,11 @@ export function JobCard({
       </div>
       <div className="flex flex-row justify-between items-center mb-1 sm:mb-1.5 lg:mb-3.5 lg:items-start">
         <div className="flex flex-row items-center">
-          <div className="text-white flex justify-center items-center w-6 h-6 rounded-md bg-cyan-500 mr-2 lg:w-14 lg:h-14 lg:text-3xl lg:mr-4">
+          <div
+            className={`text-white flex justify-center items-center w-6 h-6 rounded-md ${
+              logoUrl ? "bg-white" : "bg-cyan-500"
+            } mr-2 lg:w-14 lg:h-14 lg:text-3xl lg:mr-4`}
+          >
             {logoUrl ? (
               <img
                 src={logoUrl}
