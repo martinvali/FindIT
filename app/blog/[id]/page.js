@@ -1,11 +1,20 @@
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 
+export async function generateMetadata({ params: { id } }) {
+  const supabase = createServerComponentClient({ cookies });
+
+  const data = await supabase.from("articles").select().eq("id", id);
+  const article = data.data[0];
+  const { title, preview } = article;
+
+  return { title, description: preview };
+}
+
 export default async function BlogArticle({ params: { id } }) {
   const supabase = createServerComponentClient({ cookies });
 
   const data = await supabase.from("articles").select().eq("id", id);
-
   const article = data.data[0];
 
   const { created_at: date, title, img_url: imgUrl, text } = article;

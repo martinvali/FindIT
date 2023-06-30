@@ -3,6 +3,12 @@ import { HighLightedBlogArticle } from "../components/HighlightedBlogArticle";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 
+export const metadata = {
+  title: "Technology blog on FindIT",
+  description:
+    "Browse a selection of techology articles about the IT sector and job market in Estonia.",
+};
+
 export default async function Blog() {
   const supabase = createServerComponentClient({ cookies });
 

@@ -19,7 +19,7 @@ const poppins = Poppins({
 export const metadata = {
   title: "FindIT: Browse remote and Estonian-based IT jobs & positions.",
   description:
-    "Looking for a job in the technology sector in Estonia? Browse a wide variety of remote and Estonian-based IT-positions.",
+    "Looking for a job in the technology sector in Estonia? Browse a wide variety of remote and Estonian-based IT positions.",
   colorScheme: "light only",
   icons: [
     {
