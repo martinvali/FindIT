@@ -1,20 +1,10 @@
 "use client";
 import Link from "next/link";
 
-export function HighLightedBlogArticle({
-  id,
-  date,
-  title,
-  text,
-  imgUrl,
-  preview,
-}) {
+export function HighLightedBlogArticle({ id, date, title, imgUrl, preview }) {
   return (
     <Link
-      href={{
-        pathname: `/blog/${id}`,
-        query: { id, date, title, imgUrl, text },
-      }}
+      href={`/blog/${id}`}
       className="inline-block mb-10 sm:mb-12 md:mb-16 lg:mb-20"
     >
       <article className="flex flex-col justify-start text-left sm:flex-row sm:gap-10">

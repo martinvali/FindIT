@@ -36,7 +36,6 @@ export function JobsSection() {
           return;
         }
         allPosts.current = data;
-        console.log("posts here", data);
         setIsLoading(false);
         setPosts(data);
       } catch (e) {

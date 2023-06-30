@@ -1,5 +1,15 @@
-export default function BlogArticle({ searchParams }) {
-  const { date, title, imgUrl, text } = searchParams;
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { cookies } from "next/headers";
+
+export default async function BlogArticle({ params: { id } }) {
+  const supabase = createServerComponentClient({ cookies });
+
+  const data = await supabase.from("articles").select().eq("id", id);
+
+  const article = data.data[0];
+
+  const { created_at: date, title, img_url: imgUrl, text } = article;
+
   return (
     <main>
       <section className="pt-24 sm:pt-32 lg:pt-40 outer-container text-left md:text-center">

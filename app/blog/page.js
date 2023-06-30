@@ -6,7 +6,9 @@ import { cookies } from "next/headers";
 export default async function Blog() {
   const supabase = createServerComponentClient({ cookies });
 
-  const data = await supabase.from("articles").select();
+  const data = await supabase
+    .from("articles")
+    .select("title, created_at, id, preview, img_url");
 
   const articles = data.data;
   const lastArticleIndex = articles.length - 1;
