@@ -7,7 +7,8 @@ import Link from "next/link";
 import { notifications } from "@mantine/notifications";
 
 export function MobileNav() {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(undefined);
+  const [isMenuVisible, setIsMenuVisible] = useState(false);
   const { supabase, session } = useSupabase();
   const router = useRouter();
 
@@ -43,17 +44,22 @@ export function MobileNav() {
         src="/mobilenav.svg"
         alt="Mobile menu icon"
         className="w-8 cursor-pointer md:hidden"
-        onClick={() => setIsOpen(true)}
+        onClick={() => {
+          setIsMenuVisible(true);
+          setIsOpen(true);
+        }}
       />
 
       {/* Mobile nav */}
       <nav
-        className={`absolute md:hidden ${
+        className={`absolute md:hidden ${!isMenuVisible && "hidden"} ${
           isOpen ? "animate-openMobileNav" : "animate-closeMobileNav"
         } origin-[0%_0%] flex justify-center text-center text-slate-900 font-medium left-1/2 top-12 -translate-x-1/2 bg-white w-11/12 z-20 shadow py-12 rounded-md`}
       >
         <button
-          onClick={() => setIsOpen(false)}
+          onClick={() => {
+            setIsOpen(false);
+          }}
           className="absolute right-5 top-5"
         >
           <img src="/close.svg" alt="Close mobile nav" className="w-5" />
