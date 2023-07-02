@@ -53,7 +53,7 @@ export function JobsSection() {
   }, []);
 
   return (
-    <section className="flex-col max-w-7xl pt-24 outer-container flex gap-6 lg:flex-row">
+    <section className="flex-col max-w-7xl pt-20 md:pt-24 outer-container flex gap-6 lg:flex-row">
       <FilterComponent setPosts={setPosts} allPosts={allPosts.current} />
       <section className="flex flex-col gap-6 sm:gap-7 md:gap-8 basis-full">
         {isLoading &&

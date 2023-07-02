@@ -20,7 +20,9 @@ export function Footer() {
             </a>
           </div>
         </div>
-        <p className="text-lg">Copyright © 2023 FindIT. All rights reserved.</p>
+        <p className="text-base md:text-lg">
+          Copyright © 2023 FindIT. All rights reserved.
+        </p>
       </section>
     </footer>
   );
