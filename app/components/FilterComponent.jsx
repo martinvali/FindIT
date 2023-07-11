@@ -21,6 +21,7 @@ export function FilterComponent({ setPosts, allPosts }) {
   useEffect(() => {
     setPosts(() => {
       const filteredPosts = allPosts.filter((post) => {
+        console.log(post);
         if (
           (filters.salary[0] &&
             post.salary[0] &&
@@ -41,12 +42,15 @@ export function FilterComponent({ setPosts, allPosts }) {
 
         if (filters.search !== "") {
           const lowerCaseSearch = filters.search.toLowerCase();
-          return !(
+          if (
             !post.location.join("/").toLowerCase().includes(lowerCaseSearch) &&
             !post.type.toLowerCase().includes(lowerCaseSearch) &&
             !post.level.toLowerCase().includes(lowerCaseSearch) &&
-            !post.title.toLowerCase().includes(lowerCaseSearch)
-          );
+            !post.title.toLowerCase().includes(lowerCaseSearch) &&
+            !post.users.company_name.toLowerCase().includes(lowerCaseSearch)
+          ) {
+            return false;
+          }
         }
 
         return (
