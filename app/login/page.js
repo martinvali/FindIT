@@ -61,7 +61,7 @@ export default function Login() {
           <FormInput label="Password" type="password" name="password" />
           <button
             type="submit"
-            className="bg-cyan-500 text-white w-full rounded-md py-2 text-lg font-medium"
+            className="bg-cyan-500 hover:bg-cyan-600 transition-colors text-white w-full rounded-md py-2 text-lg font-medium"
           >
             Sign in
           </button>

@@ -12,7 +12,7 @@ export default function NotFound() {
       </h1>
       <Link
         href="/"
-        className="bg-cyan-500 hover:bg-cyan-600 transition-colors text-white py-1.5 px-4 rounded-md text-xl lg:text-2xl lg:py-2 md:px-6 lg:px-8 lg:py-2"
+        className="bg-cyan-500 hover:bg-cyan-600 transition-colors text-white py-1.5 px-4 rounded-md text-xl lg:text-2xl lg:py-2 md:px-6 lg:px-8"
       >
         Back home
       </Link>

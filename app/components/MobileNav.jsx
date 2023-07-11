@@ -64,14 +64,22 @@ export function MobileNav() {
         >
           <img src="/close.svg" alt="Close mobile nav" className="w-5" />
         </button>
-        <ul className="flex flex-col gap-6 text-2xl">
+        <ul className="flex flex-col items-center gap-6 text-2xl w-full">
           <li>
-            <Link href="/" onClick={() => setIsOpen(false)}>
+            <Link
+              className="hover:text-cyan-700 transition-colors"
+              href="/"
+              onClick={() => setIsOpen(false)}
+            >
               Jobs
             </Link>
           </li>
           <li>
-            <Link href="/blog" onClick={() => setIsOpen(false)}>
+            <Link
+              className="hover:text-cyan-700 transition-colors"
+              href="/blog"
+              onClick={() => setIsOpen(false)}
+            >
               Blog
             </Link>
           </li>
@@ -82,13 +90,18 @@ export function MobileNav() {
             </li>
           ) : (
             <li>
-              <Link href="/login" onClick={() => setIsOpen(false)}>
+              <Link
+                className="hover:text-cyan-700 transition-colors"
+                href="/login"
+                onClick={() => setIsOpen(false)}
+              >
                 Log in
               </Link>
             </li>
           )}
-          <li>
+          <li className="bg-cyan-500 hover:bg-cyan-600 transition-colors cursor-pointer rounded-md py-1.5 w-[calc(100%-40px)]">
             <Link
+              className="text-white w-full"
               href={session ? "/dashboard" : "/signup"}
               onClick={() => setIsOpen(false)}
             >
