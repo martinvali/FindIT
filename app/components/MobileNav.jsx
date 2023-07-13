@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { useSupabase } from "../providers/SupabaseProvider";
 import Link from "next/link";
 import { notifications } from "@mantine/notifications";
@@ -10,7 +9,6 @@ export function MobileNav() {
   const [isOpen, setIsOpen] = useState(undefined);
   const [isMenuVisible, setIsMenuVisible] = useState(false);
   const { supabase, session } = useSupabase();
-  const router = useRouter();
 
   const clickedLogOut = async () => {
     setIsOpen(false);
@@ -35,7 +33,6 @@ export function MobileNav() {
       title: "We're sad to see you go.",
       color: "green",
     });
-    router.refresh();
   };
 
   return (

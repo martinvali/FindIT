@@ -58,6 +58,7 @@ export default function Dashboard() {
           Dashboard
         </h1>
       </section>
+
       <section className="outer-container flex flex-col items-center">
         <Tabs
           defaultValue="My jobs"
@@ -77,16 +78,25 @@ export default function Dashboard() {
           </Tabs.List>
 
           <Tabs.Panel value="My jobs">
+            {!isLoading && userData.jobs.length === 0 && (
+              <div className="shadow p-6 rounded-xl max-w-lg w-full self-center flex justify-center items-center flex-col gap-1.5 sm:gap-2.5 md:gap-3">
+                <p className="mt-6 text-center text-xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold mb-2">
+                  No job ads were found
+                </p>
+
+                <Link
+                  href="/jobs/new"
+                  className="bg-cyan-500 hover:bg-cyan-600 transition-colors text-center text-white py-1.5 px-3 rounded-md text-xl md:text-2xl lg:py-2 lg:px-5 w-full"
+                >
+                  Post a new job
+                </Link>
+              </div>
+            )}
+
             {isLoading &&
               [0, 1, 2, 3, 4].map((id) => {
                 return <JobCardSkeleton key={id} />;
               })}
-
-            {!isLoading && userData.jobs.length === 0 && (
-              <p className="mt-6 text-center text-xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold">
-                No job ads were found :(
-              </p>
-            )}
 
             {!isLoading &&
               userData.jobs.length > 0 &&
@@ -106,7 +116,7 @@ export default function Dashboard() {
 
           <Tabs.Panel
             value="Settings"
-            className="shadow p-6 rounded-xl max-w-md w-full self-center"
+            className="shadow p-6 rounded-xl max-w-lg w-full self-center"
           >
             <SettingsPanel
               company={userData.company}
@@ -115,12 +125,6 @@ export default function Dashboard() {
             />
           </Tabs.Panel>
         </Tabs>
-        <Link
-          href="/jobs/new"
-          className="bg-cyan-500 hover:bg-cyan-600 transition-colors text-white py-1.5 px-3 rounded-md text-xl md:text-2xl lg:py-2 lg:px-5"
-        >
-          Post a new job
-        </Link>
       </section>
     </main>
   );

@@ -2,14 +2,16 @@ import { FileButton, Button, Group, Text } from "@mantine/core";
 import { useEffect, useState } from "react";
 import { useSupabase } from "@/app/providers/SupabaseProvider";
 import { notifications } from "@mantine/notifications";
+import { useRouter } from "next/navigation";
 
 export function SettingsPanel({ company, userId, logoUrl }) {
   const [file, setFile] = useState("");
   const { supabase } = useSupabase();
+  const router = useRouter();
 
   async function addCompanyImage(logoPath) {
     try {
-      const { data: uploadData, error: uploadError } = await supabase.storage
+      const { error: uploadError } = await supabase.storage
         .from("profileimages")
         .upload(logoPath, file, { cacheControl: "1" });
 
@@ -88,6 +90,8 @@ export function SettingsPanel({ company, userId, logoUrl }) {
           "Please note that it might take a few minutes for the changes to take effect.",
         color: "green",
       });
+
+      router.refresh();
     } catch (e) {
       notifications.show({
         title: "Something went wrong.",
@@ -144,15 +148,14 @@ export function SettingsPanel({ company, userId, logoUrl }) {
         </p>
       </div>
       <Group justify="center" className="w-full">
-        <FileButton
-          accept="image/png,image/jpeg"
-          onChange={setFile}
-          className="!w-full !text-lg max-w-md !bg-cyan-500"
-        >
+        <FileButton accept="image/png,image/jpeg" onChange={setFile}>
           {(props) => (
-            <Button className="!w-full !bg-cyan-500" {...props}>
+            <button
+              {...props}
+              className="bg-cyan-500 hover:bg-cyan-600 transition-colors text-center text-white py-1.5 px-3 rounded-md text-xl md:text-2xl lg:py-2 lg:px-5 w-full"
+            >
               Update image
-            </Button>
+            </button>
           )}
         </FileButton>
       </Group>
