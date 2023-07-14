@@ -101,7 +101,7 @@ export default function Dashboard() {
           <Tabs.Panel value="My jobs">
             {!isLoading && userData.jobs.length === 0 && (
               <div className="shadow p-6 rounded-xl max-w-lg lg:max-w-full w-full self-center flex justify-center items-center flex-col gap-1.5 sm:gap-2.5 md:gap-3">
-                <p className="mt-6 text-center text-xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold mb-2 lg:max-w-full">
+                <p className="mt-6 text-center text-xl sm:text-3xl md:text-4xl font-semibold mb-3 md:mb-4 lg:max-w-full">
                   No job ads were found
                 </p>
 

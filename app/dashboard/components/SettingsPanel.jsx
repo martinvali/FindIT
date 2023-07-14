@@ -119,7 +119,7 @@ export function SettingsPanel({ company, userId, logoUrl }) {
 
   return (
     <>
-      <div className="flex flex-row justify-center items-center gap-4 mb-3">
+      <div className="flex flex-row justify-center items-center gap-4 mb-3 md:mb-4">
         <div
           className={`w-16 h-16 rounded-md ${
             logoUrl ? "bg-transparent" : "bg-cyan-500"
@@ -141,7 +141,7 @@ export function SettingsPanel({ company, userId, logoUrl }) {
         </div>
 
         <p
-          className="text-cyan-500 font-semibold text-3xl
+          className="text-cyan-500 font-semibold text-3xl md:text-4xl
         "
         >
           {company}
