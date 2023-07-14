@@ -1,4 +1,4 @@
-import { FileButton, Group, Text } from "@mantine/core";
+import { FileButton, Group } from "@mantine/core";
 import { useEffect, useState } from "react";
 import { useSupabase } from "@/app/providers/SupabaseProvider";
 import { notifications } from "@mantine/notifications";
@@ -159,11 +159,7 @@ export function SettingsPanel({ company, userId, logoUrl }) {
           )}
         </FileButton>
       </Group>
-      {file && (
-        <Text size="sm" ta="center">
-          Picked file: {file.name}
-        </Text>
-      )}
+      {file && <p className="text-center">Picked file: {file.name}</p>}
     </>
   );
 }
