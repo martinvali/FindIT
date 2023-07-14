@@ -1,4 +1,4 @@
-import { FileButton, Button, Group, Text } from "@mantine/core";
+import { FileButton, Group, Text } from "@mantine/core";
 import { useEffect, useState } from "react";
 import { useSupabase } from "@/app/providers/SupabaseProvider";
 import { notifications } from "@mantine/notifications";

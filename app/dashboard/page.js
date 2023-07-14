@@ -1,7 +1,7 @@
 "use client";
 import { useSupabase } from "../providers/SupabaseProvider";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { JobCard } from "../components/JobCard";
 import { Tabs } from "@mantine/core";
 import { SettingsPanel } from "./components/SettingsPanel";
@@ -9,10 +9,28 @@ import { JobCardSkeleton } from "../components/JobCardSkeleton";
 import Link from "next/link";
 
 export default function Dashboard() {
+  const LARGE_SCREEN_WIDTH = 1024;
   const { supabase } = useSupabase();
   const [userData, setUserData] = useState([]);
   const [isLoading, setIsloading] = useState(true);
+  const [tabOrientation, setTabOrientation] = useState("horizontal");
   const router = useRouter();
+
+  useEffect(() => {
+    function updateOrientation() {
+      if (window.innerWidth >= LARGE_SCREEN_WIDTH) {
+        return setTabOrientation("vertical");
+      }
+
+      setTabOrientation("horizontal");
+    }
+
+    updateOrientation();
+
+    window.addEventListener("resize", updateOrientation);
+
+    return () => window.removeEventListener("resize", updateOrientation);
+  }, []);
 
   useEffect(() => {
     async function getUserPosts() {
@@ -62,11 +80,13 @@ export default function Dashboard() {
       <section className="outer-container flex flex-col items-center">
         <Tabs
           defaultValue="My jobs"
-          className="w-full !flex !flex-col mb-6 sm:mb-8 md:mb-10 lg:mb-12"
           classNames={{
-            panel: "flex flex-col gap-1.5 sm:gap-2.5 md:gap-3",
-            tab: "!text-lg font-medium",
+            root: "w-full !flex !flex-col lg:!flex-row lg:!self-start mb-6 sm:mb-8 md:mb-10 lg:mb-12 lg:gap-6",
+            list: "lg:!self-start lg:shadow lg:p-6 lg:rounded-xl pl-0 before:!content-none lg:!flex-col",
+            panel: "flex flex-col gap-1.5 sm:gap-2.5 md:gap-3 lg:max-w-full",
+            tab: "!text-lg !border-0 font-medium aria-[selected=false]:text-slate-600 aria-[selected=false]:after:!content-none aria-selected:text-slate-900 aria-selected:font-semibold relative after:absolute after:bottom-0.5 after:left-1/2 after:-translate-x-1/2 after:w-full after:h-1 after:bg-cyan-500 after:-z-10 after:rounded-tl-xl hover:!text-cyan-700 hover:bg-transparent transition-colors",
           }}
+          orientation={tabOrientation}
           color="#06b6d4"
         >
           <Tabs.List
@@ -79,8 +99,8 @@ export default function Dashboard() {
 
           <Tabs.Panel value="My jobs">
             {!isLoading && userData.jobs.length === 0 && (
-              <div className="shadow p-6 rounded-xl max-w-lg w-full self-center flex justify-center items-center flex-col gap-1.5 sm:gap-2.5 md:gap-3">
-                <p className="mt-6 text-center text-xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold mb-2">
+              <div className="shadow p-6 rounded-xl max-w-lg lg:max-w-full w-full self-center flex justify-center items-center flex-col gap-1.5 sm:gap-2.5 md:gap-3">
+                <p className="mt-6 text-center text-xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold mb-2 lg:max-w-full">
                   No job ads were found
                 </p>
 
