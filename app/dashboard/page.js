@@ -82,9 +82,10 @@ export default function Dashboard() {
           defaultValue="My jobs"
           classNames={{
             root: "w-full !flex !flex-col lg:!flex-row lg:!self-start mb-6 sm:mb-8 md:mb-10 lg:mb-12 lg:gap-6",
-            list: "lg:!self-start lg:shadow lg:p-6 lg:rounded-xl pl-0 before:!content-none lg:!flex-col",
-            panel: "flex flex-col gap-1.5 sm:gap-2.5 md:gap-3 lg:max-w-full",
-            tab: "!text-lg !border-0 font-medium aria-[selected=false]:text-slate-600 aria-[selected=false]:after:!content-none aria-selected:text-slate-900 aria-selected:font-semibold relative after:absolute after:bottom-0.5 after:left-1/2 after:-translate-x-1/2 after:w-full after:h-1 after:bg-cyan-500 after:-z-10 after:rounded-tl-xl hover:!text-cyan-700 hover:bg-transparent transition-colors",
+            list: "lg:!self-start lg:shadow lg:p-6 lg:rounded-xl pl-0 before:!content-none lg:!flex-col lg:!min-w-[250px]",
+            panel:
+              "w-full flex flex-col gap-1.5 sm:gap-2.5 md:gap-3 lg:max-w-full",
+            tab: "!text-lg !border-0 !justify-start font-medium aria-[selected=false]:text-slate-600 aria-[selected=false]:after:!content-none aria-selected:text-slate-900 aria-selected:font-semibold relative after:absolute after:bottom-0.5 lg:after:bottom-0 after:left-1/2 lg:after:left-0 after:-translate-x-1/2 after:w-full lg:after:w-[2px] after:h-1 lg:after:h-full after:bg-cyan-500 after:-z-10 after:rounded-tl-xl hover:!text-cyan-700 hover:bg-transparent transition-colors",
           }}
           orientation={tabOrientation}
           color="#06b6d4"
