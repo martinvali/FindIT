@@ -58,7 +58,7 @@ export function JobCard({
   }
 
   return (
-    <article className="group shadow p-6 rounded-xl relative cursor-pointer">
+    <article className="group shadow p-6 rounded-xl relative">
       <div className="hidden lg:flex opacity-0 group-hover:opacity-100 transition-opacity  flex-row items-center gap-4 sm:gap-6 absolute bottom-0 pb-4 w-full bg-white">
         <Link
           href={isDashboard ? `/jobs/edit/${id}` : createClickableURL(url)}

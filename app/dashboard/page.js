@@ -101,7 +101,7 @@ export default function Dashboard() {
           <Tabs.Panel value="My jobs">
             {!isLoading && userData.jobs.length === 0 && (
               <div className="shadow p-6 rounded-xl max-w-lg lg:max-w-full w-full self-center flex justify-center items-center flex-col gap-1.5 sm:gap-2.5 md:gap-3">
-                <p className="mt-6 text-center text-xl sm:text-3xl md:text-4xl font-semibold mb-3 md:mb-4 lg:max-w-full">
+                <p className="mt-6 text-center text-xl sm:text-3xl md:text-4xl font-medium mb-3 md:mb-4 lg:max-w-full">
                   No job ads were found
                 </p>
 
@@ -119,20 +119,34 @@ export default function Dashboard() {
                 return <JobCardSkeleton key={id} />;
               })}
 
-            {!isLoading &&
-              userData.jobs.length > 0 &&
-              userData.jobs.map((job) => {
-                return (
-                  <JobCard
-                    {...job}
-                    key={job.id}
-                    company={userData.company}
-                    logoUrl={userData.logoUrl}
-                    isDashboard={true}
-                    setUserData={setUserData}
-                  />
-                );
-              })}
+            {!isLoading && userData.jobs.length > 0 && (
+              <>
+                <div className="shadow p-6 rounded-xl max-w-full w-full self-center flex justify-center items-center flex-col gap-1.5 sm:gap-2.5 md:gap-3">
+                  <p className="mt-6 text-center text-xl sm:text-3xl md:text-4xl font-medium mb-3 md:mb-4 lg:max-w-full">
+                    Got a new job offer?
+                  </p>
+
+                  <Link
+                    href="/jobs/new"
+                    className="bg-cyan-500 hover:bg-cyan-600 transition-colors text-center text-white py-1.5 px-3 rounded-md text-xl md:text-2xl lg:py-2 lg:px-5 w-full"
+                  >
+                    Post a new job
+                  </Link>
+                </div>
+                {userData.jobs.map((job) => {
+                  return (
+                    <JobCard
+                      {...job}
+                      key={job.id}
+                      company={userData.company}
+                      logoUrl={userData.logoUrl}
+                      isDashboard={true}
+                      setUserData={setUserData}
+                    />
+                  );
+                })}
+              </>
+            )}
           </Tabs.Panel>
 
           <Tabs.Panel
